@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6c4df6">
+  <meta name="description" content="StudySprint — your calm, organized space for assignments, deadlines, and better study habits.">
+  <title>Dashboard · StudySprint</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="storage.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body data-page="dashboard">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="nav-container">
+      <a class="brand" href="index.html" aria-label="StudySprint dashboard">
+        <span class="brand-mark" data-icon="graduation" aria-hidden="true"></span>
+        <span>Study<span class="brand-accent">Sprint</span><small>YOUR STUDY SPACE</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" data-view="dashboard" class="active" aria-current="page"><span data-icon="dashboard"></span><span>Dashboard</span></a>
+        <a href="assignments.html" data-view="assignments"><span data-icon="clipboard"></span><span>Assignments</span></a>
+        <a href="calendar.html" data-view="calendar"><span data-icon="calendar"></span><span>Calendar</span></a>
+        <a href="progress.html" data-view="progress"><span data-icon="chart"></span><span>Progress</span></a>
+      </nav>
+      <div class="nav-actions">
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notification-button" aria-label="Notifications" aria-expanded="false" aria-controls="notifications"><span data-icon="bell"></span><span class="notification-dot" id="notification-dot"></span></button>
+          <div class="notification-popover" id="notifications" hidden></div>
+        </div>
+        <span class="nav-divider"></span>
+        <button class="profile-button" id="profile-button" aria-label="Edit profile and preferences"><span class="avatar" id="profile-avatar">SC</span><span class="profile-text"><strong id="profile-name">Sarah Chen</strong><small id="profile-course">Computer Science</small></span><span data-icon="chevron-down" class="profile-chevron"></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="workspace-bar">
+    <div class="workspace-inner"><div class="breadcrumb"><span data-icon="home"></span><span>My workspace</span><span class="breadcrumb-divider">/</span><strong id="breadcrumb-current">Dashboard</strong></div><div class="workspace-right"><span class="saved-label"><span class="saved-dot"></span><span id="storage-label">Saved on this device</span></span><form class="global-search" id="global-search-form" action="assignments.html" method="get" role="search"><button class="search-submit" type="submit" aria-label="Search assignments"><span data-icon="search"></span></button><input id="global-search" name="q" type="search" placeholder="Search assignments…" aria-label="Search all assignments"><kbd>/</kbd></form></div></div>
+  </div>
+  <main id="main-content" tabindex="-1">
+    <div class="page-heading">
+      <div>
+        <span class="eyebrow" id="page-eyebrow">TODAY</span>
+        <h1 id="page-title">Let’s make today count 👋</h1>
+        <p>Your goals, your pace. Let’s take the next step together.</p>
+      </div>
+      <div class="heading-actions">
+        <span class="date-label"><span data-icon="calendar"></span><span id="page-date"></span></span>
+        <button class="button primary" data-action="add-assignment"><span data-icon="plus"></span>Add assignment</button>
+      </div>
+    </div>
+    <!-- Dashboard: welcome banner, live statistics, assignments, and study plan. -->
+    <section class="hero">
+      <div class="hero-text">
+        <span class="hero-chip"><span data-icon="sparkles"></span>A LITTLE PROGRESS, EVERY DAY</span>
+        <h2>Big goals start with small steps.</h2>
+        <p>Plan your work. Find your focus. Make it happen.</p>
+        <button class="hero-link" data-action="focus">Let’s get focused <span data-icon="arrow"></span></button>
+      </div>
+      <svg class="hero-art" viewBox="0 0 290 200" fill="none" aria-hidden="true"><ellipse cx="150" cy="175" rx="112" ry="9" fill="#ded4f6"/><path d="M46 168h199" stroke="#ba9cdd" stroke-width="2" stroke-linecap="round"/><rect x="76" y="151" width="104" height="16" rx="4" fill="#bda4e4"/><path d="M86 155h87M86 160h87" stroke="#e5d7f7"/><rect x="70" y="134" width="99" height="17" rx="4" fill="#9574cf"/><path d="M78 139h84M78 145h84" stroke="#c7b1e5"/><path d="m98 130-13-74c-1-5 2-7 6-8l47-8c4-1 7 1 8 5l14 81-62 4Z" fill="#fbf8ff" stroke="#c6afe5" stroke-width="1.5"/><path d="m101 68 35-6M103 78l35-6M105 88l26-4M107 107l34-6" stroke="#dfd1ef" stroke-width="2" stroke-linecap="round"/><path d="m106 115 10-13 11 3 10-20" stroke="#a68ad0" stroke-width="2" stroke-linecap="round"/><rect x="134" y="97" width="67" height="43" rx="4" fill="#f6efff" stroke="#bc9fdd" stroke-width="1.5"/><path d="m137 137 61-2-4-34-56 1-1 35Z" fill="#d8c7f0"/><path d="m130 141 77-2 8 8-92 2 7-8Z" fill="#ab8bd5"/><path d="m161 143 16-1" stroke="#e9dcf8" stroke-width="2"/><path d="M218 137c-1-15-12-22-10-32 12 0 17 17 16 30M224 138c0-22 13-25 16-37 8 16-6 26-12 36M224 133c-2-28 8-29 6-44 15 13 3 31-4 43" fill="#aaae9e"/><path d="m211 137 28-1-4 29-19 1-5-29Z" fill="#d1bce7"/><path d="M212 142h26" stroke="#b69bd0"/><g class="floating-star"><path d="m198 39 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#b89edc"/><path d="m57 77 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z" fill="#cbb4e7"/><circle cx="174" cy="35" r="3" fill="#d7c1ef"/><circle cx="64" cy="120" r="2" fill="#c9ade7"/></g></svg>
+    </section>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-icon pink" data-icon="calendar"></span>
+        <div><div class="stat-value" data-stat="due">0</div><div class="stat-label">Upcoming deadlines</div><div class="stat-note">Due soon, including overdue</div></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon blue" data-icon="check-circle"></span>
+        <div><div class="stat-value" data-stat="tasks">0</div><div class="stat-label">Tasks left today</div><div class="stat-note" data-stat="tasks-note">You’ve got this!</div></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon purple" data-icon="chart"></span>
+        <div><div class="stat-value" data-stat="progress">0%</div><div class="stat-label">Overall progress</div><div class="stat-note">A little closer to your goals</div></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon green" data-icon="trophy"></span>
+        <div><div class="stat-value" data-stat="completed">0</div><div class="stat-label">Completed this week</div><div class="stat-note positive"><span data-icon="trend"></span> Keep the momentum going</div></div>
+      </div>
+    </div>
+    <div class="dashboard-grid">
+      <div class="dashboard-main">
+        <section class="card">
+          <div class="card-header"><div><h2>Upcoming assignments</h2><p>A little planning goes a long way.</p></div><a class="text-button" href="assignments.html">View all <span data-icon="arrow"></span></a></div>
+          <div class="table-wrap" id="upcoming-table"><table><thead><tr><th>Assignment</th><th>Due date</th><th class="priority-column">Priority</th><th>Status</th></tr></thead><tbody id="upcoming-rows"></tbody></table></div>
+          <div id="upcoming-empty" hidden></div>
+          <div class="card-bottom" id="upcoming-bottom"><span id="upcoming-count"></span><span>You’ve got this <span data-icon="sparkles"></span></span></div>
+        </section>
+        <section class="card">
+          <div class="card-header"><div><h2>Today’s study plan</h2><p>Small steps. Meaningful progress.</p></div><button class="text-button" data-action="add-task"><span data-icon="plus"></span>Add task</button></div>
+          <div class="tasks-list" id="tasks-list"></div>
+          <div class="task-card-bottom"><div class="task-progress-label"><span id="task-completion-label"></span><span id="task-completion-percent"></span></div><div class="progress-track"><div class="progress-fill" id="task-progress-fill"></div></div></div>
+        </section>
+      </div>
+      <aside class="dashboard-side">
+        <section class="card focus-card" id="focus-card">
+          <div class="card-header"><div class="focus-heading"><span data-icon="target"></span><h2>Time to focus</h2></div><span title="A little focus goes a long way" data-icon="more"></span></div>
+          <div class="focus-label">ONE THING AT A TIME</div>
+          <div class="timer-ring"><svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="70"/><circle class="timer-progress" id="timer-progress" cx="80" cy="80" r="70"/></svg><div><div class="timer-digits" id="timer-display" role="timer" aria-label="Focus time remaining">25:00</div><div class="timer-caption" id="timer-caption">Your next little win starts here.</div></div></div>
+          <div class="focus-controls"><button class="button primary" id="timer-toggle" data-action="toggle-timer"><span data-icon="play"></span>Start focus session</button><button class="icon-button" data-action="reset-timer" aria-label="Reset focus timer"><span data-icon="reset"></span></button></div>
+          <div class="focus-bottom"><select id="timer-duration" aria-label="Focus session duration"><option value="15">15 min focus</option><option value="25" selected>25 min focus</option><option value="45">45 min focus</option><option value="60">60 min focus</option></select><span><span data-icon="leaf"></span><span id="focus-goal-label"></span></span></div>
+        </section>
+        <section class="card weekly-card">
+          <div class="card-header"><h2>Your week at a glance</h2><span class="muted" data-icon="chart"></span></div>
+          <div class="week-value"><span id="weekly-activity-count">0</span><small>activities completed</small></div>
+          <div id="weekly-activity-chart"></div>
+          <p class="weekly-caption"><span data-icon="sparkles"></span><span id="weekly-activity-caption"></span></p>
+        </section>
+      </aside>
+    </div>
+    <div class="quick-actions">
+      <button class="quick-action" data-action="add-assignment"><span data-icon="plus"></span><span><strong>New assignment</strong><small>Get it out of your head</small></span><span data-icon="arrow"></span></button>
+      <a class="quick-action" href="calendar.html"><span data-icon="calendar"></span><span><strong>Open calendar</strong><small>See the bigger picture</small></span><span data-icon="arrow"></span></a>
+      <button class="quick-action" data-action="focus"><span data-icon="book"></span><span><strong>Find your focus</strong><small>One thing at a time</small></span><span data-icon="arrow"></span></button>
+      <a class="quick-action" href="progress.html"><span data-icon="chart"></span><span><strong>View progress</strong><small>Celebrate your effort</small></span><span data-icon="arrow"></span></a>
+    </div>
+  </main>
+  <noscript><p class="privacy-note">Enable JavaScript to load your saved assignments and study tools.</p></noscript>
+  <footer class="site-footer"><a class="footer-brand" href="index.html">StudySprint<span>Make room for what matters.</span></a><span>One small step, every day.<span class="footer-sparkle">✦</span></span></footer>
+  <dialog id="assignment-dialog" class="modal" aria-labelledby="assignment-dialog-title">
+    <form id="assignment-form">
+      <div class="modal-heading"><div><span class="eyebrow">LET’S GET ORGANIZED</span><h2 id="assignment-dialog-title">Add an assignment</h2></div><button type="button" class="icon-button" data-close="assignment-dialog" aria-label="Close assignment form"><span data-icon="x"></span></button></div>
+      <p class="modal-intro">A clear plan is the first step to getting it done.</p>
+      <input type="hidden" id="assignment-id">
+      <label class="field">Assignment title <span class="required">*</span><input id="assignment-title" name="title" required maxlength="120" placeholder="e.g. Data Structures Assignment" autocomplete="off"></label>
+      <div class="form-grid"><label class="field">Subject <span class="required">*</span><select id="assignment-subject" name="subject" required></select></label><label class="field">Due date <span class="required">*</span><input id="assignment-date" type="date" name="dueDate" required></label></div>
+      <div class="form-grid"><label class="field">Priority<select id="assignment-priority" name="priority"><option>High</option><option selected>Medium</option><option>Low</option></select></label><label class="field">Status<select id="assignment-status" name="status"><option>Not Started</option><option>In Progress</option><option>Completed</option></select></label></div>
+      <label class="field">Description / notes <span class="optional">Optional</span><textarea id="assignment-notes" name="notes" maxlength="500" rows="4" placeholder="Add a little context, instructions, or your next step…"></textarea><span class="character-count"><span id="notes-count">0</span>/500</span></label>
+      <div class="modal-footer"><button type="button" class="button secondary" data-close="assignment-dialog">Cancel</button><button type="submit" class="button primary" id="save-assignment"><span data-icon="plus"></span>Add assignment</button></div>
+    </form>
+  </dialog>
+  <dialog id="profile-dialog" class="modal profile-modal" aria-labelledby="profile-dialog-title"><form id="profile-form"><div class="modal-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="profile-dialog-title">Your study space</h2></div><button type="button" class="icon-button" data-close="profile-dialog" aria-label="Close preferences"><span data-icon="x"></span></button></div><p class="modal-intro">The little details that make this space feel like you.</p><label class="field">Your name<input id="settings-name" required maxlength="50" placeholder="Your name" autocomplete="name"></label><label class="field">Course / major<input id="settings-course" required maxlength="60" placeholder="e.g. Computer Science"></label><label class="field">Daily focus goal<select id="settings-goal"><option value="2">2 focus sessions</option><option value="4">4 focus sessions</option><option value="6">6 focus sessions</option><option value="8">8 focus sessions</option></select></label><p class="privacy-note"><span data-icon="shield"></span>Your data stays in this browser. No account needed.</p><div class="modal-footer"><button type="button" class="button secondary" data-close="profile-dialog">Cancel</button><button type="submit" class="button primary">Save preferences</button></div></form></dialog>
+  <dialog id="task-dialog" class="modal profile-modal" aria-labelledby="task-dialog-title"><form id="task-form"><div class="modal-heading"><h2 id="task-dialog-title">Add a study task</h2><button type="button" class="icon-button" data-close="task-dialog" aria-label="Close task form"><span data-icon="x"></span></button></div><label class="field">What’s your next step?<input id="task-title" required maxlength="100" placeholder="e.g. Review chapter 6" autocomplete="off"></label><label class="field">Subject<select id="task-subject"></select></label><div class="modal-footer"><button type="button" class="button secondary" data-close="task-dialog">Cancel</button><button class="button primary" type="submit">Add task</button></div></form></dialog>
+  <div id="toast-region" class="toast-region" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

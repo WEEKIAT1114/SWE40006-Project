@@ -49,7 +49,7 @@ const isDateKey = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.te
 
 function seedState() {
   const assignment = (title, subject, offset, priority, status, notes = '') => ({id:uid(),title,subject,dueDate:relativeKey(offset),priority,status,notes,createdAt:new Date().toISOString(),completedAt:status === 'Completed' ? relativeKey(offset) : null});
-  return {version:1,profile:{name:'Sarah Chen',course:'Computer Science',goal:4},assignments:[
+  return {version:1,profile:{name:'Student',course:'Computer Science',goal:4},assignments:[
     assignment('Data Structures Assignment','Computer Science',2,'High','In Progress','Implement and compare sorting algorithms. Include a short analysis of time complexity.'),
     assignment('Marketing Case Study','Business Management',4,'High','Not Started','Choose a brand and evaluate its latest marketing strategy.'),
     assignment('Lab Report #4','Physics',5,'Medium','In Progress','Summarize the experiment, observations, and sources of error.'),
@@ -74,6 +74,8 @@ function loadState(raw) {
     parsed.assignments = parsed.assignments.filter(a => a && typeof a.id === 'string' && typeof a.title === 'string' && SUBJECTS.includes(a.subject) && isDateKey(a.dueDate) && ['High','Medium','Low'].includes(a.priority) && ['Not Started','In Progress','Completed'].includes(a.status));
     parsed.tasks = parsed.tasks.filter(t => t && typeof t.id === 'string' && typeof t.title === 'string' && isDateKey(t.date));
     parsed.focusSessions = Array.isArray(parsed.focusSessions) ? parsed.focusSessions.filter(s => s && isDateKey(s.date) && Number.isFinite(s.minutes) && s.minutes > 0) : [];
+    // Update the original demo name while preserving saved coursework and preferences.
+    if (parsed.profile.name === 'Sarah Chen') parsed.profile.name = 'Student';
     parsed.profile = {name:String(parsed.profile.name || 'Student').slice(0,50),course:String(parsed.profile.course || 'My studies').slice(0,60),goal:[2,4,6,8].includes(Number(parsed.profile.goal)) ? Number(parsed.profile.goal) : 4};
     return parsed;
   } catch { storageAvailable = false; return seedState(); }

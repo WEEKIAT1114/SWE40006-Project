@@ -1,0 +1,8 @@
+
+> studysprint@2.0.0 demo:gate
+> node scripts/demonstrate-gate.cjs
+
+EXPECTED FAILURE: invalid backup input was rejected.
+Validation stage exit code: 1
+Packaging stage: BLOCKED. Deployment stage: BLOCKED.
+PASS: local release-gate demonstration. GitHub run evidence must be collected after pushing the repository.

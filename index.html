@@ -8,10 +8,17 @@
   <title>Dashboard · StudySprint</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <script src="js/utils.js" defer></script>
+  <script src="js/assignments.js" defer></script>
+  <script src="js/tasks.js" defer></script>
+  <script src="js/timer.js" defer></script>
+  <script src="js/progress.js" defer></script>
+  <script src="js/reminders.js" defer></script>
+  <script src="js/model.js" defer></script>
   <script src="storage.js" defer></script>
   <script src="app.js" defer></script>
 </head>
-<body data-page="dashboard">
+<body data-ready="false" data-page="dashboard">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="topbar">
     <div class="nav-container">
@@ -50,6 +57,7 @@
         <button class="button primary" data-action="add-assignment"><span data-icon="plus"></span>Add assignment</button>
       </div>
     </div>
+    <section class="workspace-intro card" id="workspace-intro"><div><h2>A fresh start for your study goals</h2><p>Create an assignment, break it into study tasks, and track your focus. Sample data is optional.</p></div><button class="button secondary" data-action="load-demo">Try sample workspace</button></section>
     <!-- Dashboard: welcome banner, live statistics, assignments, and study plan. -->
     <section class="hero">
       <div class="hero-text">
@@ -60,14 +68,16 @@
       </div>
       <svg class="hero-art" viewBox="0 0 290 200" fill="none" aria-hidden="true"><ellipse cx="150" cy="175" rx="112" ry="9" fill="#ded4f6"/><path d="M46 168h199" stroke="#ba9cdd" stroke-width="2" stroke-linecap="round"/><rect x="76" y="151" width="104" height="16" rx="4" fill="#bda4e4"/><path d="M86 155h87M86 160h87" stroke="#e5d7f7"/><rect x="70" y="134" width="99" height="17" rx="4" fill="#9574cf"/><path d="M78 139h84M78 145h84" stroke="#c7b1e5"/><path d="m98 130-13-74c-1-5 2-7 6-8l47-8c4-1 7 1 8 5l14 81-62 4Z" fill="#fbf8ff" stroke="#c6afe5" stroke-width="1.5"/><path d="m101 68 35-6M103 78l35-6M105 88l26-4M107 107l34-6" stroke="#dfd1ef" stroke-width="2" stroke-linecap="round"/><path d="m106 115 10-13 11 3 10-20" stroke="#a68ad0" stroke-width="2" stroke-linecap="round"/><rect x="134" y="97" width="67" height="43" rx="4" fill="#f6efff" stroke="#bc9fdd" stroke-width="1.5"/><path d="m137 137 61-2-4-34-56 1-1 35Z" fill="#d8c7f0"/><path d="m130 141 77-2 8 8-92 2 7-8Z" fill="#ab8bd5"/><path d="m161 143 16-1" stroke="#e9dcf8" stroke-width="2"/><path d="M218 137c-1-15-12-22-10-32 12 0 17 17 16 30M224 138c0-22 13-25 16-37 8 16-6 26-12 36M224 133c-2-28 8-29 6-44 15 13 3 31-4 43" fill="#aaae9e"/><path d="m211 137 28-1-4 29-19 1-5-29Z" fill="#d1bce7"/><path d="M212 142h26" stroke="#b69bd0"/><g class="floating-star"><path d="m198 39 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#b89edc"/><path d="m57 77 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z" fill="#cbb4e7"/><circle cx="174" cy="35" r="3" fill="#d7c1ef"/><circle cx="64" cy="120" r="2" fill="#c9ade7"/></g></svg>
     </section>
-    <div class="stats-grid">
+    <div class="stats-grid expanded-stats">
+      <div class="stat-card"><span class="stat-icon purple" data-icon="clipboard"></span><div><div class="stat-value" data-stat="total">0</div><div class="stat-label">Total assignments</div><div class="stat-note">Everything you’re working toward</div></div></div>
+      <div class="stat-card"><span class="stat-icon green" data-icon="check-circle"></span><div><div class="stat-value" data-stat="total-completed">0</div><div class="stat-label">Total completed assignments</div><div class="stat-note">All your assignment wins</div></div></div>
       <div class="stat-card">
         <span class="stat-icon pink" data-icon="calendar"></span>
         <div><div class="stat-value" data-stat="due">0</div><div class="stat-label">Upcoming deadlines</div><div class="stat-note">Due soon, including overdue</div></div>
       </div>
       <div class="stat-card">
         <span class="stat-icon blue" data-icon="check-circle"></span>
-        <div><div class="stat-value" data-stat="tasks">0</div><div class="stat-label">Tasks left today</div><div class="stat-note" data-stat="tasks-note">You’ve got this!</div></div>
+        <div><div class="stat-value" data-stat="tasks">0</div><div class="stat-label">Tasks due &amp; overdue</div><div class="stat-note" data-stat="tasks-note">You’ve got this!</div></div>
       </div>
       <div class="stat-card">
         <span class="stat-icon purple" data-icon="chart"></span>
@@ -87,7 +97,7 @@
           <div class="card-bottom" id="upcoming-bottom"><span id="upcoming-count"></span><span>You’ve got this <span data-icon="sparkles"></span></span></div>
         </section>
         <section class="card">
-          <div class="card-header"><div><h2>Today’s study plan</h2><p>Small steps. Meaningful progress.</p></div><button class="text-button" data-action="add-task"><span data-icon="plus"></span>Add task</button></div>
+          <div class="card-header"><div><h2>Your study plan</h2><p>Today’s steps, with unfinished work kept in view.</p><label class="task-view-label">Show <select id="task-view"><option value="today">Today + unfinished past tasks</option><option value="upcoming">Upcoming tasks</option><option value="overdue">Overdue tasks</option><option value="all">All tasks</option><option value="completed">Completed history</option></select></label></div><button class="text-button" data-action="add-task"><span data-icon="plus"></span>Add task</button></div>
           <div class="tasks-list" id="tasks-list"></div>
           <div class="task-card-bottom"><div class="task-progress-label"><span id="task-completion-label"></span><span id="task-completion-percent"></span></div><div class="progress-track"><div class="progress-fill" id="task-progress-fill"></div></div></div>
         </section>
@@ -95,7 +105,7 @@
       <aside class="dashboard-side">
         <section class="card focus-card" id="focus-card">
           <div class="card-header"><div class="focus-heading"><span data-icon="target"></span><h2>Time to focus</h2></div><span title="A little focus goes a long way" data-icon="more"></span></div>
-          <div class="focus-label">ONE THING AT A TIME</div>
+          <div class="focus-label">ONE THING AT A TIME</div><label class="focus-context-label">Focus on<select id="focus-context" aria-label="Related assignment or task"></select></label><label class="focus-context-label">Session<select id="timer-kind" aria-label="Session type"><option value="focus">Focus</option><option value="short-break">Short break</option><option value="long-break">Long break</option></select></label>
           <div class="timer-ring"><svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="70"/><circle class="timer-progress" id="timer-progress" cx="80" cy="80" r="70"/></svg><div><div class="timer-digits" id="timer-display" role="timer" aria-label="Focus time remaining">25:00</div><div class="timer-caption" id="timer-caption">Your next little win starts here.</div></div></div>
           <div class="focus-controls"><button class="button primary" id="timer-toggle" data-action="toggle-timer"><span data-icon="play"></span>Start focus session</button><button class="icon-button" data-action="reset-timer" aria-label="Reset focus timer"><span data-icon="reset"></span></button></div>
           <div class="focus-bottom"><select id="timer-duration" aria-label="Focus session duration"><option value="15">15 min focus</option><option value="25" selected>25 min focus</option><option value="45">45 min focus</option><option value="60">60 min focus</option></select><span><span data-icon="leaf"></span><span id="focus-goal-label"></span></span></div>
@@ -116,21 +126,51 @@
     </div>
   </main>
   <noscript><p class="privacy-note">Enable JavaScript to load your saved assignments and study tools.</p></noscript>
-  <footer class="site-footer"><a class="footer-brand" href="index.html">StudySprint<span>Make room for what matters.</span></a><span>One small step, every day.<span class="footer-sparkle">✦</span></span></footer>
+  <footer class="site-footer"><a class="footer-brand" href="index.html">StudySprint v2.0<span>Make room for what matters.</span></a><span>One small step, every day.<span class="footer-sparkle">✦</span></span></footer>
   <dialog id="assignment-dialog" class="modal" aria-labelledby="assignment-dialog-title">
     <form id="assignment-form">
       <div class="modal-heading"><div><span class="eyebrow">LET’S GET ORGANIZED</span><h2 id="assignment-dialog-title">Add an assignment</h2></div><button type="button" class="icon-button" data-close="assignment-dialog" aria-label="Close assignment form"><span data-icon="x"></span></button></div>
       <p class="modal-intro">A clear plan is the first step to getting it done.</p>
-      <input type="hidden" id="assignment-id">
+      <input type="hidden" id="assignment-id"><input type="hidden" id="assignment-revision">
       <label class="field">Assignment title <span class="required">*</span><input id="assignment-title" name="title" required maxlength="120" placeholder="e.g. Data Structures Assignment" autocomplete="off"></label>
       <div class="form-grid"><label class="field">Subject <span class="required">*</span><select id="assignment-subject" name="subject" required></select></label><label class="field">Due date <span class="required">*</span><input id="assignment-date" type="date" name="dueDate" required></label></div>
       <div class="form-grid"><label class="field">Priority<select id="assignment-priority" name="priority"><option>High</option><option selected>Medium</option><option>Low</option></select></label><label class="field">Status<select id="assignment-status" name="status"><option>Not Started</option><option>In Progress</option><option>Completed</option></select></label></div>
+      <div class="form-grid"><label class="field">Due time <span class="optional">Optional</span><input id="assignment-time" type="time"></label><label class="field">Estimated study hours <span class="optional">Optional</span><input id="assignment-hours" type="number" min="0" max="1000" step="0.25" placeholder="e.g. 6"></label></div>
+      <label class="field" id="assignment-custom-subject-wrap" hidden>New subject<input id="assignment-custom-subject" maxlength="50" placeholder="e.g. Software Engineering"></label>
       <label class="field">Description / notes <span class="optional">Optional</span><textarea id="assignment-notes" name="notes" maxlength="500" rows="4" placeholder="Add a little context, instructions, or your next step…"></textarea><span class="character-count"><span id="notes-count">0</span>/500</span></label>
+      <div class="checklist-heading"><h3>Completion checklist</h3><button type="button" class="text-button" id="add-checklist-step">+ Add step</button></div><div id="checklist-editor"></div>
       <div class="modal-footer"><button type="button" class="button secondary" data-close="assignment-dialog">Cancel</button><button type="submit" class="button primary" id="save-assignment"><span data-icon="plus"></span>Add assignment</button></div>
     </form>
   </dialog>
-  <dialog id="profile-dialog" class="modal profile-modal" aria-labelledby="profile-dialog-title"><form id="profile-form"><div class="modal-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="profile-dialog-title">Your study space</h2></div><button type="button" class="icon-button" data-close="profile-dialog" aria-label="Close preferences"><span data-icon="x"></span></button></div><p class="modal-intro">The little details that make this space feel like you.</p><label class="field">Your name<input id="settings-name" required maxlength="50" placeholder="Your name" autocomplete="name"></label><label class="field">Course / major<input id="settings-course" required maxlength="60" placeholder="e.g. Computer Science"></label><label class="field">Daily focus goal<select id="settings-goal"><option value="2">2 focus sessions</option><option value="4">4 focus sessions</option><option value="6">6 focus sessions</option><option value="8">8 focus sessions</option></select></label><p class="privacy-note"><span data-icon="shield"></span>Your data stays in this browser. No account needed.</p><div class="modal-footer"><button type="button" class="button secondary" data-close="profile-dialog">Cancel</button><button type="submit" class="button primary">Save preferences</button></div></form></dialog>
-  <dialog id="task-dialog" class="modal profile-modal" aria-labelledby="task-dialog-title"><form id="task-form"><div class="modal-heading"><h2 id="task-dialog-title">Add a study task</h2><button type="button" class="icon-button" data-close="task-dialog" aria-label="Close task form"><span data-icon="x"></span></button></div><label class="field">What’s your next step?<input id="task-title" required maxlength="100" placeholder="e.g. Review chapter 6" autocomplete="off"></label><label class="field">Subject<select id="task-subject"></select></label><div class="modal-footer"><button type="button" class="button secondary" data-close="task-dialog">Cancel</button><button class="button primary" type="submit">Add task</button></div></form></dialog>
+  <dialog id="profile-dialog" class="modal settings-modal" aria-labelledby="profile-dialog-title">
+    <form id="profile-form"><div class="modal-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="profile-dialog-title">Your study space</h2></div><button type="button" class="icon-button" data-close="profile-dialog" aria-label="Close preferences"><span data-icon="x"></span></button></div>
+      <div class="form-grid"><label class="field">Your name<input id="settings-name" required maxlength="50" autocomplete="name"></label><label class="field">Course / major<input id="settings-course" required maxlength="60"></label></div>
+      <label class="field">Daily focus goal<input id="settings-goal" type="number" required min="1" max="20"></label>
+      <h3 class="settings-section-title">Focus &amp; breaks</h3>
+      <div class="form-grid"><label class="field">Focus minutes<input id="settings-focusMinutes" type="number" min="1" max="120" required></label><label class="field">Short break minutes<input id="settings-shortBreak" type="number" min="1" max="30" required></label><label class="field">Long break minutes<input id="settings-longBreak" type="number" min="1" max="60" required></label><label class="field">Long break every sessions<input id="settings-longBreakEvery" type="number" min="2" max="10" required></label></div>
+      <h3 class="settings-section-title">Deadline reminders</h3>
+      <label class="check-label"><input id="settings-reminders" type="checkbox">Show in-app deadline reminders</label><div class="reminder-choices"><label><input type="checkbox" name="reminder-day" value="7">7 days before</label><label><input type="checkbox" name="reminder-day" value="3">3 days before</label><label><input type="checkbox" name="reminder-day" value="1">1 day before</label><label><input type="checkbox" name="reminder-day" value="0">Due today</label></div><p class="help-text">Overdue warnings are included. Alerts update while the website is open; closed-page alerts need a separate reminder service.</p>
+      <h3 class="settings-section-title">Your subjects</h3><div id="subject-list" class="subject-list"></div><div class="inline-field"><input id="new-subject" maxlength="50" placeholder="Add a course or subject" aria-label="New subject name"><button type="button" class="button secondary" id="add-subject">Add subject</button></div>
+      <h3 class="settings-section-title">Backup &amp; recovery</h3><p class="help-text">Keep an exported backup outside this browser. Your address and browser determine where the workspace is stored.</p><div class="settings-actions"><button type="button" class="button secondary" id="export-data">Export JSON backup</button><button type="button" class="button secondary" id="import-data">Import backup</button><button type="button" class="button secondary" id="recover-data">Restore previous snapshot</button></div>
+      <h3 class="settings-section-title">Sample workspace</h3><div class="settings-actions"><button type="button" class="button secondary" id="load-demo">Load sample records</button><button type="button" class="button secondary" id="clear-demo">Clear sample records</button></div>
+      <div class="modal-footer"><button type="button" class="button secondary" data-close="profile-dialog">Cancel</button><button type="submit" class="button primary" id="save-profile">Save preferences</button></div>
+    </form>
+  </dialog>
+  <dialog id="task-dialog" class="modal" aria-labelledby="task-dialog-title">
+    <form id="task-form"><div class="modal-heading"><h2 id="task-dialog-title">Plan a study task</h2><button type="button" class="icon-button" data-close="task-dialog" aria-label="Close task form"><span data-icon="x"></span></button></div>
+      <input type="hidden" id="task-id"><input type="hidden" id="task-revision">
+      <label class="field">What’s your next step?<input id="task-title" required maxlength="100" placeholder="e.g. Research the project requirements" autocomplete="off"></label>
+      <label class="field">Related assignment<select id="task-assignment"></select></label>
+      <div class="form-grid"><label class="field">Study date<input id="task-date" type="date" required></label><label class="field">Time <span class="optional">Optional</span><input id="task-time" type="time"></label></div>
+      <div class="form-grid"><label class="field">Subject<select id="task-subject" required></select></label><label class="field">Priority<select id="task-priority"><option>High</option><option selected>Medium</option><option>Low</option></select></label></div>
+      <label class="field" id="task-custom-subject-wrap" hidden>New subject<input id="task-custom-subject" maxlength="50" placeholder="e.g. Software Engineering"></label>
+      <label class="check-label"><input id="task-done" type="checkbox">Completed</label>
+      <div class="modal-footer"><button type="button" class="button secondary" data-close="task-dialog">Cancel</button><button class="button primary" id="save-task" type="submit">Add task</button></div>
+    </form>
+  </dialog>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+  <dialog id="confirm-dialog" class="modal profile-modal" aria-labelledby="confirm-title"><h2 id="confirm-title">Confirm</h2><p id="confirm-message" class="confirmation-message"></p><div class="modal-footer"><button type="button" class="button secondary" data-close="confirm-dialog">Cancel</button><button type="button" class="button primary" id="confirm-accept">Confirm</button></div></dialog>
+  <dialog id="import-dialog" class="modal" aria-labelledby="import-title"><form id="import-form"><div class="modal-heading"><h2 id="import-title">Import your backup</h2><button type="button" class="icon-button" data-close="import-dialog" aria-label="Close import"><span data-icon="x"></span></button></div><p class="confirmation-message" id="import-summary"></p><label class="check-label"><input type="radio" id="import-mode-merge" name="import-mode" value="merge" checked>Merge — keep existing records when IDs match</label><label class="check-label"><input type="radio" name="import-mode" value="replace">Replace the current workspace</label><p class="help-text">Replacement saves the current valid workspace as a recovery snapshot first. Active timers are reset when replacing data.</p><div class="modal-footer"><button type="button" class="button secondary" data-close="import-dialog">Cancel</button><button type="submit" class="button primary">Import backup</button></div></form></dialog>
   <div id="toast-region" class="toast-region" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>

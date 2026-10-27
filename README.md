@@ -1,49 +1,87 @@
-# StudySprint
+# StudySprint 2.0
 
-A responsive student productivity website based on the supplied reference, with the navigation across the **top** of every screen. Each screen is now a separate HTML page.
+Student Study Planner & Assignment Deadline Tracker. A four-page, browser-local application that connects assignments, scheduled study tasks, focus sessions, and progress. The purple interface, top navigation, and Student profile are preserved.
 
 ## Open the website
 
-Double-click **index.html**. No installation, build tools, account, or internet connection is required.
+Keep using the same browser and address as before so the existing workspace can migrate automatically. If your current server is already running, refresh it after the update.
 
-For a local server, open a terminal in this folder and run:
+For a new local session, double-click **Start StudySprint.cmd**, or run:
 
-```sh
-python -m http.server 8000
+```powershell
+node scripts/serve.cjs
 ```
 
-Then open http://localhost:8000 in your browser. Use the same address each time to keep access to your saved browser data.
+Open **http://127.0.0.1:8000**. The runtime uses Node's built-in modules; no package installation is required just to serve the website. If you prefer Python:
+
+```powershell
+python -m http.server 8000 --bind 127.0.0.1
+```
+
+Directly opening `index.html` is supported through a file-only storage bridge where the browser permits it. Local-file frames/storage vary between browsers; the stable local server is the recommended daily-use setup. Different addresses, ports, browsers, and file/server modes have separate data.
+
+## Connected student workflow
+
+1. Create an assignment with a subject, deadline/time, priority, effort estimate, and checklist.
+2. Use its calendar icon in Assignments to plan linked study tasks across different dates.
+3. View today plus unfinished past tasks, upcoming work, all tasks, or completed history on Dashboard.
+4. Start a linked focus session from a task or assignment. Complete a focus session, then take a short or longer break.
+5. Review task/checklist completion, recorded focus minutes, estimates, reminders, and progress across all four pages.
+
+Assignment status is explicit: finishing a checklist or study task does not unexpectedly mark the assignment completed.
 
 ## Features
 
-- Dashboard with live statistics, upcoming assignments, study tasks, and weekly activity.
-- Assignment manager with search, status tabs, subject and priority filters, sorting, and add/edit/delete actions.
-- Calendar with month, week, and list views, date selection, and assignment details.
-- Progress overview with completion by subject and daily focus activity.
-- Focus timer with start, pause, reset, and adjustable session length. Completed sessions are recorded locally.
-- Editable profile and daily focus goal.
-- Keyboard shortcuts: `/` focuses search; `Escape` closes dialogs and popovers.
-- Responsive layouts, keyboard access, labeled controls, and reduced-motion support.
+- Full assignment CRUD, custom subjects, deadline time, estimated hours, and editable completion checklist.
+- Full study-task CRUD, scheduling/rescheduling, time, priority, assignment links, completion, and history.
+- Month/week/list calendar with both study tasks and assignment deadlines.
+- Dashboard totals, derived overdue warnings, linked task counts, and recorded study time.
+- Configurable in-app reminders at 7, 3, 1, and 0 days, plus overdue warnings.
+- Focus, short-break, and long-break modes with linked context and exactly-once completion across tabs.
+- Progress by subject, planned/completed task trends, assignment effort, and focus minutes.
+- JSON export/import with preview, merge/replace options, strict validation, and a previous-snapshot recovery action.
+- IndexedDB transactions and record revisions prevent unrelated multi-tab edits from replacing each other and reject stale edits to the same record.
+- Version-1 data migration; invalid saved data is not silently replaced with demo records.
+- Optional labeled samples, clear-sample controls, confirmation and Undo for record deletion.
+- Larger text, stronger contrast, responsive navigation, keyboard shortcuts, and accessible labels.
 
-## Files
+## Settings and backup
 
-- `index.html` — dashboard, welcome banner, statistics, upcoming assignments, study plan, and focus timer.
-- `assignments.html` — assignment manager, status tabs, filters, and table.
-- `calendar.html` — calendar controls, month/week/list views, and selected-day agenda.
-- `progress.html` — subject progress, overall completion, focus activity, and milestones.
-- `styles.css` — responsive layout and styling.
-- `app.js` — shared application logic, sample data, and dynamic data rendering.
-- `storage.js` — shared browser storage, including support for navigation between local HTML files.
-- `favicon.svg` — StudySprint icon.
+Click the Student avatar/name to edit profile, focus goals, break preferences, reminder intervals, subjects, and backup/recovery options. Export backups regularly and keep a copy outside the browser. Only one previous valid mutation snapshot is retained automatically; it is not an external backup.
 
-Each HTML file contains its own page layout inside `<main>`. The header, navigation, footer, and shared forms are included in every page so the files can open directly without server-side includes or a build process. Edit a page's HTML to change its layout; `app.js` fills in its changing data such as assignment rows and chart values.
+Sample records are opt-in. Existing version-1 records remain intact and unmarked because the app cannot safely infer whether previously edited records are demonstration data or coursework. Clear sample records removes only records explicitly labeled Sample.
 
-The navigation uses ordinary relative links between the HTML files. The search field filters live on the assignments page. On another page, enter a query and press **Enter** or click the search icon to open the matching assignments.
+## Testing and build
 
-Sample assignments use dates relative to the first launch. Changes are saved with `localStorage` in the current browser and origin. For direct `file:` access, `storage.js` uses a hidden frame of `index.html` as a common storage location, preserving the original dashboard's saved data and sharing it with the other pages. Some browsers restrict local-file frames or storage; if the app reports a storage problem, use the local server above. The server and local-file modes have separate browser storage.
+For development tooling, install Node.js 20+ and run:
 
-This is a standalone front-end application: it does not synchronize across devices or send notifications when the page is closed. Focus timer state is saved when starting, pausing, or resetting, and its remaining time is recalculated when navigating or returning to a page. Keep a StudySprint page open to see completion messages. If storage is blocked or full, the app displays a warning and keeps changes in memory for the current page.
+```powershell
+npm ci
+npm run verify
+npx playwright install chromium firefox
+npm run test:browser
+npm run demo:gate
+```
 
-## Customize
+Unit/storage tests use Node's test runner and fake-indexeddb. Browser tests use Playwright. `npm run build` creates a dependency-free static site in `dist/` and a SHA-256 release manifest. `node_modules` is not part of the website or source delivery; `npm ci` restores test dependencies.
 
-Change the colors and fonts in the `:root` variables in `styles.css`. Sample content, subjects, and the default profile are defined near the top of `app.js`.
+Chromium, installed Google Chrome, and installed Microsoft Edge passed the local workflow suite. Firefox could not launch in the local Windows environment; its tests remain configured for another supported environment/CI. See [verification evidence](docs/VERIFICATION.md) for exact results and limitations.
+
+## Project structure
+
+- `index.html`, `assignments.html`, `calendar.html`, `progress.html`: each page's own layout and shared forms.
+- `app.js`: application controller, page rendering, and user interactions.
+- `js/utils.js`, `assignments.js`, `tasks.js`, `timer.js`, `progress.js`, `reminders.js`, `model.js`: domain logic, validation, migration, and atomic operations.
+- `storage.js`: IndexedDB repository and restricted local-file bridge.
+- `styles.css`, `favicon.svg`: appearance and branding.
+- `tests/`: unit/storage regression tests and browser workflows.
+- `scripts/`: local server, static checks, packaging, and a local failed-gate demonstration.
+- `.github/workflows/`: push/PR checks and manually triggered gated deployment/rollback.
+- `docs/OPERATIONS.md`: environment, logs, hosting, recovery, rollback, and evidence instructions.
+- `CHANGELOG.md`: version history.
+
+## Deployment and limitations
+
+The supplied workflows are ready to commit to the team's repository. They have not been run on GitHub or used to publish a production site by this local update. The manual deployment workflow supports GitHub Pages; see [operations](docs/OPERATIONS.md) if the approved team hosting plan requires Azure instead.
+
+Data remains in the browser; accounts and cloud synchronization are not included. Reminders update while the website is open. Email/SMS/push and reliable closed-page reminders need additional infrastructure. Only completed focus sessions contribute recorded study minutes. Local tests do not certify every browser, device, or production environment.

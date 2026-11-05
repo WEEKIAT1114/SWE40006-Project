@@ -57,6 +57,7 @@ For development tooling, install Node.js 20+ and run:
 
 ```powershell
 npm ci
+npm run format:check
 npm run verify
 npx playwright install chromium firefox
 npm run test:browser
@@ -64,6 +65,10 @@ npm run demo:gate
 ```
 
 Unit/storage tests use Node's test runner and fake-indexeddb. Browser tests use Playwright. `npm run build` creates a dependency-free static site in `dist/` and a SHA-256 release manifest. `node_modules` is not part of the website or source delivery; `npm ci` restores test dependencies.
+
+Run `npm run format` to apply the project's indentation and line wrapping. The shared formatting settings cover JavaScript, HTML, CSS, JSON, Markdown, and workflow files.
+
+The browser test command writes project-relative paths in its JSON report, including failed runs. Saved evidence can be made portable with `node scripts/portable-report.cjs <report.json>`; test outcomes and timings are retained.
 
 Chromium, installed Google Chrome, and installed Microsoft Edge passed the local workflow suite. Firefox could not launch in the local Windows environment; its tests remain configured for another supported environment/CI. See [verification evidence](docs/VERIFICATION.md) for exact results and limitations.
 

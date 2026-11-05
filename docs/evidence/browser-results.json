@@ -1,12 +1,12 @@
 {
   "config": {
     "argv": [
-      "C:\\Program Files\\nodejs\\node.exe",
-      "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\node_modules\\@playwright\\test\\cli.js",
+      "node",
+      "node_modules/@playwright/test/cli.js",
       "test"
     ],
-    "configFile": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\playwright.config.cjs",
-    "rootDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+    "configFile": "playwright.config.cjs",
+    "rootDir": "tests/browser",
     "failOnFlakyTests": false,
     "forbidOnly": false,
     "fullyParallel": false,
@@ -22,7 +22,7 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -30,7 +30,7 @@
         },
         "id": "chromium",
         "name": "chromium",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -38,7 +38,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -46,7 +46,7 @@
         },
         "id": "firefox",
         "name": "firefox",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -54,7 +54,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -62,7 +62,7 @@
         },
         "id": "edge",
         "name": "edge",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -70,7 +70,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -78,7 +78,7 @@
         },
         "id": "chrome",
         "name": "chrome",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -90,15 +90,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "chromium",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
@@ -128,15 +128,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "firefox",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
@@ -166,15 +166,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "edge",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
@@ -205,15 +205,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "chrome",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
@@ -659,12 +659,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-assignment-creat-2689f-sists-across-the-four-pages-firefox\\error-context.md"
+                      "path": "test-results/workflows-assignment-creat-2689f-sists-across-the-four-pages-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-assignment-creat-2689f-sists-across-the-four-pages-firefox\\trace.zip"
+                      "path": "test-results/workflows-assignment-creat-2689f-sists-across-the-four-pages-firefox/trace.zip"
                     }
                   ]
                 }
@@ -712,12 +712,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-study-tasks-link-4776c-ndar-and-can-be-rescheduled-firefox\\error-context.md"
+                      "path": "test-results/workflows-study-tasks-link-4776c-ndar-and-can-be-rescheduled-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-study-tasks-link-4776c-ndar-and-can-be-rescheduled-firefox\\trace.zip"
+                      "path": "test-results/workflows-study-tasks-link-4776c-ndar-and-can-be-rescheduled-firefox/trace.zip"
                     }
                   ]
                 }
@@ -765,12 +765,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-past-incomplete--48c87-ctions-have-cancel-and-undo-firefox\\error-context.md"
+                      "path": "test-results/workflows-past-incomplete--48c87-ctions-have-cancel-and-undo-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-past-incomplete--48c87-ctions-have-cancel-and-undo-firefox\\trace.zip"
+                      "path": "test-results/workflows-past-incomplete--48c87-ctions-have-cancel-and-undo-firefox/trace.zip"
                     }
                   ]
                 }
@@ -818,12 +818,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-an-open-form-doe-fec72-assignment-from-another-tab-firefox\\error-context.md"
+                      "path": "test-results/workflows-an-open-form-doe-fec72-assignment-from-another-tab-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-an-open-form-doe-fec72-assignment-from-another-tab-firefox\\trace.zip"
+                      "path": "test-results/workflows-an-open-form-doe-fec72-assignment-from-another-tab-firefox/trace.zip"
                     }
                   ]
                 }
@@ -871,12 +871,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-reminders-identi-75b10--custom-subjects-are-usable-firefox\\error-context.md"
+                      "path": "test-results/workflows-reminders-identi-75b10--custom-subjects-are-usable-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-reminders-identi-75b10--custom-subjects-are-usable-firefox\\trace.zip"
+                      "path": "test-results/workflows-reminders-identi-75b10--custom-subjects-are-usable-firefox/trace.zip"
                     }
                   ]
                 }
@@ -924,12 +924,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-JSON-backup-expo-1b87d-nto-a-fresh-browser-context-firefox\\error-context.md"
+                      "path": "test-results/workflows-JSON-backup-expo-1b87d-nto-a-fresh-browser-context-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-JSON-backup-expo-1b87d-nto-a-fresh-browser-context-firefox\\trace.zip"
+                      "path": "test-results/workflows-JSON-backup-expo-1b87d-nto-a-fresh-browser-context-firefox/trace.zip"
                     }
                   ]
                 }
@@ -977,12 +977,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-a-linked-focus-s-4eeb7-tes-once-and-offers-a-break-firefox\\error-context.md"
+                      "path": "test-results/workflows-a-linked-focus-s-4eeb7-tes-once-and-offers-a-break-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-a-linked-focus-s-4eeb7-tes-once-and-offers-a-break-firefox\\trace.zip"
+                      "path": "test-results/workflows-a-linked-focus-s-4eeb7-tes-once-and-offers-a-break-firefox/trace.zip"
                     }
                   ]
                 }
@@ -1030,12 +1030,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-desktop-mobile-k-a190a-alendar-modes-remain-usable-firefox\\error-context.md"
+                      "path": "test-results/workflows-desktop-mobile-k-a190a-alendar-modes-remain-usable-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-desktop-mobile-k-a190a-alendar-modes-remain-usable-firefox\\trace.zip"
+                      "path": "test-results/workflows-desktop-mobile-k-a190a-alendar-modes-remain-usable-firefox/trace.zip"
                     }
                   ]
                 }
@@ -1083,12 +1083,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-previous-snapsho-7ffc4-y-restores-a-deleted-record-firefox\\error-context.md"
+                      "path": "test-results/workflows-previous-snapsho-7ffc4-y-restores-a-deleted-record-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-previous-snapsho-7ffc4-y-restores-a-deleted-record-firefox\\trace.zip"
+                      "path": "test-results/workflows-previous-snapsho-7ffc4-y-restores-a-deleted-record-firefox/trace.zip"
                     }
                   ]
                 }
@@ -1136,12 +1136,12 @@
                     {
                       "name": "error-context",
                       "contentType": "text/markdown",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-legacy-browser-d-c35e3-ing-coursework-with-samples-firefox\\error-context.md"
+                      "path": "test-results/workflows-legacy-browser-d-c35e3-ing-coursework-with-samples-firefox/error-context.md"
                     },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results\\workflows-legacy-browser-d-c35e3-ing-coursework-with-samples-firefox\\trace.zip"
+                      "path": "test-results/workflows-legacy-browser-d-c35e3-ing-coursework-with-samples-firefox/trace.zip"
                     }
                   ]
                 }

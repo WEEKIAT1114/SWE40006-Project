@@ -2,11 +2,11 @@
 
 ## Environments
 
-| Environment | Configuration | Data |
-| --- | --- | --- |
-| Development | `npm start`, http://127.0.0.1:8000 | Your browser's development workspace |
+| Environment       | Configuration                                                               | Data                                                                   |
+| ----------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Development       | `npm start`, http://127.0.0.1:8000                                          | Your browser's development workspace                                   |
 | Automated testing | Playwright starts a separate server on port 8123 and fresh browser contexts | Disposable test workspaces; no access to the development origin's data |
-| Production | Contents of `dist/` on the chosen static host | A separate browser workspace for that production origin |
+| Production        | Contents of `dist/` on the chosen static host                               | A separate browser workspace for that production origin                |
 
 Use one stable address for daily work. `localhost`, `127.0.0.1`, different ports, and different browsers have separate storage. Export/import when moving between them.
 

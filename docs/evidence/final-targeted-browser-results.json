@@ -1,8 +1,8 @@
 {
   "config": {
     "argv": [
-      "C:\\Program Files\\nodejs\\node.exe",
-      "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\node_modules\\@playwright\\test\\cli.js",
+      "node",
+      "node_modules/@playwright/test/cli.js",
       "test",
       "--project=chromium",
       "--project=chrome",
@@ -10,8 +10,8 @@
       "--grep",
       "past incomplete|desktop, mobile"
     ],
-    "configFile": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\playwright.config.cjs",
-    "rootDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+    "configFile": "playwright.config.cjs",
+    "rootDir": "tests/browser",
     "failOnFlakyTests": false,
     "forbidOnly": false,
     "fullyParallel": false,
@@ -27,7 +27,7 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -35,7 +35,7 @@
         },
         "id": "chromium",
         "name": "chromium",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -43,7 +43,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -51,7 +51,7 @@
         },
         "id": "firefox",
         "name": "firefox",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -59,7 +59,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -67,7 +67,7 @@
         },
         "id": "edge",
         "name": "edge",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -75,7 +75,7 @@
         "timeout": 30000
       },
       {
-        "outputDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -83,7 +83,7 @@
         },
         "id": "chrome",
         "name": "chrome",
-        "testDir": "C:/Users/Edward/Documents/ChatGPT/SWE40006/StudySprint-improvements/tests/browser",
+        "testDir": "tests/browser",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -95,15 +95,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "chromium",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
@@ -133,15 +133,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "edge",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
@@ -172,15 +172,15 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\test-results",
+        "outputDir": "test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 2
         },
         "name": "chrome",
-        "testDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
-        "snapshotDir": "C:\\Users\\Edward\\Documents\\ChatGPT\\SWE40006\\StudySprint-improvements\\tests\\browser",
+        "testDir": "tests/browser",
+        "snapshotDir": "tests/browser",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,

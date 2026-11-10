@@ -1,3 +1,4 @@
+// Study-task rules: validation, assignment links, scheduling, and task views.
 (function (root, factory) {
   const api = factory(
     typeof module === 'object' && module.exports ? require('./utils.js') : root.StudySprint.utils
@@ -10,6 +11,7 @@
 })(globalThis, function (utils) {
   'use strict';
 
+  // Linked tasks use the assignment subject so the two records stay consistent.
   function validate(input, state) {
     const assignmentId = input.assignmentId || null;
     const related = state.assignments.find((item) => item.id === assignmentId);
@@ -34,6 +36,7 @@
     };
   }
 
+  // Task save: keep revision history and the date the task was completed.
   function put(state, operation, now) {
     const index = state.tasks.findIndex((item) => item.id === operation.record.id);
     const existing = state.tasks[index];
@@ -54,6 +57,7 @@
     return record;
   }
 
+  // Task views: choose the visible records, then sort by date, time, and title.
   function list(state, view = 'today', now = Date.now()) {
     const today = utils.today(now);
     return state.tasks

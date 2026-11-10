@@ -1,3 +1,4 @@
+// Assignment rules: validate records, calculate deadlines, and save revisions.
 (function (root, factory) {
   const api = factory(
     typeof module === 'object' && module.exports ? require('./utils.js') : root.StudySprint.utils
@@ -12,6 +13,7 @@
   const statuses = ['Not Started', 'In Progress', 'Completed'];
   const priorities = ['High', 'Medium', 'Low'];
 
+  // Assignment validation: check the form data before it enters the workspace.
   function validate(input, subjects) {
     const subject = utils.text(input.subject, 'Subject', 50);
 
@@ -47,6 +49,7 @@
     };
   }
 
+  // Deadline calculation: a date without a time stays due until 23:59 that day.
   function dueAt(item) {
     return new Date(`${item.dueDate}T${item.dueTime || '23:59'}:00`).getTime();
   }
@@ -55,6 +58,7 @@
     return item.status !== 'Completed' && dueAt(item) < now;
   }
 
+  // Assignment save: reject stale edits and track when completion changes.
   function put(state, operation, now) {
     const index = state.assignments.findIndex((item) => item.id === operation.record.id);
     const existing = state.assignments[index];

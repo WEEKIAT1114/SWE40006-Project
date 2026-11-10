@@ -1,3 +1,4 @@
+/* Theme variables: shared colours, typography, spacing, and surfaces. */
 :root {
   --purple: #704df4;
   --purple-dark: #5d3dde;
@@ -21,6 +22,7 @@
   font-synthesis: none;
   background: var(--background);
 }
+/* Base styles: browser defaults, form controls, and keyboard focus. */
 * {
   box-sizing: border-box;
 }
@@ -133,6 +135,7 @@ h3 {
 [hidden] {
   display: none !important;
 }
+/* Site header: branding, navigation, profile, and notifications. */
 .topbar {
   background: var(--white);
   border-bottom: 1px solid var(--line);
@@ -276,6 +279,7 @@ h3 {
   height: 14px;
   color: #9f9aaf;
 }
+/* Deadline reminders: bell indicator and notification popover. */
 .notification-wrap {
   position: relative;
 }
@@ -342,6 +346,7 @@ h3 {
   font-size: 11px;
   color: var(--muted);
 }
+/* Workspace bar: breadcrumb, save indicator, and global search. */
 .workspace-bar {
   border-bottom: 1px solid var(--line);
   background: #ffffff99;
@@ -432,6 +437,7 @@ main {
 main:focus {
   outline: 0;
 }
+/* Page heading and shared action buttons. */
 .page-heading {
   display: flex;
   justify-content: space-between;
@@ -533,6 +539,7 @@ main:focus {
 .muted {
   color: var(--muted);
 }
+/* Dashboard welcome banner and illustration. */
 .hero {
   display: flex;
   align-items: center;
@@ -644,6 +651,7 @@ main:focus {
     transform: translateY(-5px);
   }
 }
+/* Dashboard totals: card layout, values, and coloured icons. */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -712,6 +720,7 @@ main:focus {
   width: 10px;
   height: 10px;
 }
+/* Shared cards and the dashboard column layout. */
 .dashboard-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 310px;
@@ -790,6 +799,7 @@ tbody tr:last-child td {
 tbody tr:hover {
   background: #fdfcff;
 }
+/* Assignment table: titles, subjects, deadlines, and status badges. */
 .assignment-name {
   display: flex;
   align-items: center;
@@ -923,6 +933,7 @@ tbody tr:hover {
   width: 34px;
   height: 38px;
 }
+/* Focus timer: countdown ring, session controls, and daily goal. */
 .focus-card {
   text-align: center;
   padding: 22px 22px 19px;
@@ -1044,6 +1055,7 @@ tbody tr:hover {
   width: 11px;
   height: 11px;
 }
+/* Study plan: task rows, completion controls, and progress bar. */
 .tasks-list {
   padding: 0 24px 5px;
 }
@@ -1138,6 +1150,7 @@ tbody tr:hover {
   color: #b1a4bf;
   margin-bottom: 7px;
 }
+/* Weekly activity chart: columns, labels, and summary text. */
 .weekly-card {
   padding: 22px 22px 15px;
 }
@@ -1217,6 +1230,7 @@ tbody tr:hover {
   height: 12px;
   color: #b299d4;
 }
+/* Quick actions: shortcuts below the dashboard cards. */
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1278,6 +1292,7 @@ tbody tr:hover {
   border-bottom: 1px solid var(--line);
   gap: 20px;
 }
+/* Assignment filters: status tabs, dropdowns, and search. */
 .tabs {
   display: flex;
   gap: 25px;
@@ -1357,6 +1372,7 @@ tbody tr:hover {
 .filter-search input::placeholder {
   color: #b7a8bf;
 }
+/* Empty views: guidance shown when there are no matching records. */
 .empty-state {
   padding: 55px 24px;
   text-align: center;
@@ -1388,6 +1404,7 @@ tbody tr:hover {
 .empty-state .button {
   margin-top: 6px;
 }
+/* Calendar: toolbar, month grid, selected dates, and deadline events. */
 .calendar-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 290px;
@@ -1548,6 +1565,7 @@ tbody tr:hover {
   border-radius: 2px;
   background: var(--subject-color);
 }
+/* Calendar agenda: the selected day and its scheduled work. */
 .agenda-card {
   align-self: start;
 }
@@ -1610,6 +1628,7 @@ tbody tr:hover {
   padding: 8px;
   font-size: 10px;
 }
+/* Calendar list view: chronological rows instead of a date grid. */
 .calendar-list {
   padding: 0 23px 20px;
 }
@@ -1650,6 +1669,7 @@ tbody tr:hover {
   display: block;
   margin-top: 3px;
 }
+/* Progress page: subject bars, completion ring, and focus activity. */
 .progress-layout {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
@@ -1747,6 +1767,7 @@ tbody tr:hover {
 .progress-focus .chart-bar-wrap {
   height: 125px;
 }
+/* Progress milestones and achievement cards. */
 .achievement-list {
   padding: 0 24px 22px;
 }
@@ -1799,6 +1820,7 @@ tbody tr:hover {
   height: 22px;
   flex-shrink: 0;
 }
+/* Site footer and shared closing links. */
 .site-footer {
   max-width: 1480px;
   padding: 20px 40px 28px;
@@ -1830,6 +1852,7 @@ tbody tr:hover {
   margin-left: 10px;
   color: #bb9ed9;
 }
+/* Dialogs and forms: assignment, task, preferences, confirmation, and import. */
 .modal {
   background: white;
   color: var(--ink);
@@ -1959,6 +1982,7 @@ tbody tr:hover {
   width: 18px;
   height: 18px;
 }
+/* Feedback messages: save notices, errors, and the Undo action. */
 .toast-region {
   position: fixed;
   bottom: 28px;
@@ -2131,6 +2155,7 @@ thead,
 .notification-item small {
   color: #927e9e;
 }
+/* Responsive layout: large screens, tablets, and phones. */
 @media (min-width: 1600px) {
   .hero-quote {
     display: block;
@@ -2871,6 +2896,7 @@ thead,
     justify-self: end;
   }
 }
+/* Accessibility: respect the system preference for reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *:before,
@@ -2881,6 +2907,8 @@ thead,
   }
 }
 
+/* Component refinements: later rules override the base styles above.
+   Check this section too when changing the appearance of an existing component. */
 /* Version 2: readable type, clearer contrast, and connected planning controls. */
 :root {
   --muted: #686175;
@@ -3189,6 +3217,7 @@ td,
   color: #584068;
   font-size: 15px;
 }
+/* Assignment checklist editor: step titles, completion, and removal controls. */
 .checklist-heading {
   display: flex;
   justify-content: space-between;
@@ -3510,6 +3539,7 @@ td,
 .weekly-caption {
   line-height: 1.8;
 }
+/* Storage recovery panel: keep backup and restore actions available after a load error. */
 .storage-error {
   padding: 25px;
   border: 1px solid #e3bdca;

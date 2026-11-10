@@ -74,6 +74,8 @@ Chromium, installed Google Chrome, and installed Microsoft Edge passed the local
 
 ## Project structure
 
+See the [code guide](docs/CODE_GUIDE.md) for feature locations and searchable comment labels.
+
 - `index.html`, `assignments.html`, `calendar.html`, `progress.html`: each page's own layout and shared forms.
 - `app.js`: application controller, page rendering, and user interactions.
 - `js/utils.js`, `assignments.js`, `tasks.js`, `timer.js`, `progress.js`, `reminders.js`, `model.js`: domain logic, validation, migration, and atomic operations.

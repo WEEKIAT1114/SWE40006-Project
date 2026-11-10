@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+// Build paths: regenerate only the project dist folder.
 const root = path.resolve(__dirname, '..');
 const output = path.resolve(root, 'dist');
 if (output !== path.join(root, 'dist') || path.dirname(output) !== root) {
@@ -10,6 +11,7 @@ if (fs.existsSync(output)) {
   fs.rmSync(output, { recursive: true });
 }
 fs.mkdirSync(output);
+// Public assets: copy website files without development tools or saved reports.
 const files = [
   'index.html',
   'assignments.html',
@@ -24,6 +26,7 @@ const files = [
     .filter((f) => f.endsWith('.js'))
     .map((f) => 'js/' + f),
 ];
+// Release manifest: record a checksum for every packaged file.
 const hashes = {};
 for (const file of files) {
   const target = path.join(output, file);

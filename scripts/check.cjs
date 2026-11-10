@@ -4,6 +4,7 @@ const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 const pages = ['index.html', 'assignments.html', 'calendar.html', 'progress.html'];
 let count = 0;
+// JavaScript check: parse runtime files without executing browser code.
 for (const file of [
   'app.js',
   'storage.js',
@@ -15,6 +16,7 @@ for (const file of [
   new vm.Script(fs.readFileSync(path.join(root, file), 'utf8'), { filename: file });
   count++;
 }
+// HTML checks: catch duplicate IDs, missing assets, and broken page navigation.
 for (const file of pages) {
   const html = fs.readFileSync(path.join(root, file), 'utf8');
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);

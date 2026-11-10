@@ -6,6 +6,7 @@
     module.exports = create;
     return;
   }
+  // Local-file bridge: direct-file pages share one hidden storage frame.
   const FRAME = '#studysprint-storage';
   const REQUEST = 'studysprint:v2:request';
   const RESPONSE = 'studysprint:v2:response';
@@ -41,6 +42,7 @@
     });
     return;
   }
+  // Hosted pages use IndexedDB directly and do not expose the file-message bridge.
   if (location.protocol !== 'file:') {
     window.studySprintStorage = create({
       indexedDB: root.indexedDB,
@@ -97,6 +99,7 @@
       request.resolve(event.data.value);
     }
   });
+  // Bridge requests: match each reply to its pending request and enforce a timeout.
   async function request(action, value) {
     await ready;
     return new Promise((resolve, reject) => {
@@ -123,6 +126,7 @@
   document.body.append(frame);
 })(globalThis, function (model) {
   'use strict';
+  // Repository: own the database connection, transactions, and change subscriptions.
   return function createRepository(options = {}) {
     const factory = options.indexedDB;
     const legacy = options.localStorage;
@@ -132,6 +136,7 @@
     const channel = options.BroadcastChannel
       ? new options.BroadcastChannel(`${name}:changes`)
       : null;
+    // Database connection: reuse it until a schema change requires it to be reopened.
     function open() {
       if (!connection) {
         connection = new Promise((resolve, reject) => {
@@ -160,6 +165,7 @@
       }
       return connection;
     }
+    // Atomic updates: read the latest workspace and write the result in one transaction.
     async function transaction(action, operation) {
       const db = await open();
       return new Promise((resolve, reject) => {
@@ -185,6 +191,7 @@
               output = stored || null;
               return;
             }
+            // Recovery restores the previous valid snapshot with a newer workspace revision.
             if (action === 'recover') {
               if (!stored) {
                 throw new Error(
@@ -213,6 +220,7 @@
                 operation?.type === 'data:import' &&
                 operation.mode === 'replace'
               ) {
+                // Keep unreadable data before accepting an explicit replacement backup.
                 unreadable = true;
                 store.put(
                   {
@@ -237,6 +245,7 @@
             const result = model.apply(state, operation, options.now ? options.now() : Date.now());
             if (result.changed) {
               if (!unreadable) {
+                // Save the previous state alongside the new one in the same transaction.
                 store.put(
                   {
                     savedAt: new Date().toISOString(),
@@ -256,12 +265,14 @@
         };
       });
     }
+    // Change notifications: update this page and tell other tabs to reload the latest revision.
     async function publish(state) {
       for (const listener of listeners) {
         listener(state);
       }
       channel?.postMessage({ revision: state.revision });
     }
+    // Public storage API used by app.js and the local-file bridge.
     const repository = {
       read: () => transaction('read'),
       async commit(operation) {

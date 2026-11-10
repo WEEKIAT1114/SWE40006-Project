@@ -1,3 +1,4 @@
+// Focus-session rules: countdown state, linked work, breaks, and completion records.
 (function (root, factory) {
   const api = factory(
     typeof module === 'object' && module.exports ? require('./utils.js') : root.StudySprint.utils
@@ -9,6 +10,7 @@
   }
 })(globalThis, function (utils) {
   'use strict';
+  // New session: keep the linked task or assignment when switching session type.
   function fresh(minutes = 25, kind = 'focus', context = {}) {
     return {
       id: utils.id(),
@@ -22,8 +24,10 @@
       subject: context.subject || 'Other',
     };
   }
+  // Use the saved end time so background tabs do not slow down the countdown.
   const remaining = (timer, now = Date.now()) =>
     timer.running ? Math.max(0, Math.ceil((timer.endAt - now) / 1000)) : timer.remaining;
+  // Session context: resolve the linked records and reject deleted selections.
   function contextFor(state, input) {
     const task = state.tasks.find((item) => item.id === input.taskId);
     const assignment = state.assignments.find(
@@ -42,6 +46,7 @@
     };
   }
 
+  // Timer controls: start, pause, reset, or configure the current session.
   function control(state, operation, now) {
     const timer = state.timer;
     if (operation.timerId && timer.id !== operation.timerId) {
@@ -87,6 +92,7 @@
     }
   }
 
+  // Session completion: record focus time once, then prepare the next break or focus.
   function finish(state, timerId, now) {
     const timer = state.timer;
     if (timer.id !== timerId || !timer.running || timer.endAt > now) {
@@ -108,6 +114,7 @@
         taskTitle: task?.title || '',
       });
     }
+    // The daily session count decides when a longer break is offered.
     const daily = state.focusSessions.filter((session) => session.date === utils.today(now)).length;
     const kind = wasFocus
       ? daily > 0 && daily % state.settings.longBreakEvery === 0

@@ -1,3 +1,4 @@
+// Shared date helpers, input validation, record IDs, and revision checks.
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) {
@@ -7,6 +8,7 @@
   }
 })(globalThis, function () {
   'use strict';
+  // Error types let forms distinguish invalid input from a conflicting edit.
   class ValidationError extends Error {
     constructor(message) {
       super(message);
@@ -21,12 +23,14 @@
       this.name = 'ConflictError';
     }
   }
+  // Common values: copied workspace data, unique IDs, and local calendar dates.
   const clone = (value) => JSON.parse(JSON.stringify(value));
   const id = () =>
     globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   const dateKey = (date) =>
     `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   const today = (now = Date.now()) => dateKey(new Date(now));
+  // Noon avoids date-only values landing on the previous day after time conversion.
   const parseDate = (value) => new Date(`${value}T12:00:00`);
   const validDate = (value) =>
     typeof value === 'string' &&
@@ -38,6 +42,7 @@
     date.setDate(date.getDate() + days);
     return dateKey(date);
   };
+  // Compare calendar dates in UTC so daylight-saving changes do not add partial days.
   const daysBetween = (from, to) => {
     const utc = (key) => {
       const [y, m, d] = key.split('-').map(Number);
@@ -54,6 +59,7 @@
       /[&<>"']/g,
       (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
     );
+  // Input validation: each helper returns a checked value or a readable form error.
   function text(value, label, max, optional = false) {
     if (typeof value !== 'string') {
       throw new ValidationError(`${label} must be text.`);
@@ -102,6 +108,7 @@
     return value;
   }
 
+  // Revision check: an older form must not overwrite a newer edit from another tab.
   function version(existing, expected) {
     if (existing && existing.revision !== expected) {
       throw new ConflictError();
@@ -111,6 +118,7 @@
     }
   }
 
+  // Record history: preserve creation time and advance the revision on every save.
   function stamp(existing, now) {
     return {
       revision: (existing?.revision || 0) + 1,

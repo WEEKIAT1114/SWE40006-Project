@@ -1,3 +1,4 @@
+// Workspace model: defaults, migration, backup validation, and data operations.
 (function (root, factory) {
   const node = typeof module === 'object' && module.exports;
   const get = (name) => (node ? require(`./${name}.js`) : root.StudySprint[name]);
@@ -19,6 +20,7 @@
     'Psychology',
     'Other',
   ];
+  // Workspace defaults: settings for new users and fields absent from older data.
   const defaults = () => ({
     remindersEnabled: true,
     reminderDays: [7, 3, 1, 0],
@@ -27,6 +29,7 @@
     longBreak: 15,
     longBreakEvery: 4,
   });
+  // New workspace: start with no coursework or sample records.
   function empty() {
     return {
       version: VERSION,
@@ -42,6 +45,7 @@
     };
   }
 
+  // Preferences validation: keep timer lengths and reminder intervals within limits.
   function settings(input = {}) {
     const values = { ...defaults(), ...input };
     if (
@@ -60,6 +64,7 @@
     };
   }
 
+  // Legacy migration: convert version-1 AM/PM times to the current 24-hour format.
   function legacyTime(value = '') {
     const match = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(value);
     if (!match) {
@@ -85,6 +90,7 @@
     }
   }
 
+  // Workspace validation: rebuild a consistent state before saving or importing it.
   function normalize(input) {
     if (
       !input ||
@@ -202,6 +208,7 @@
     return state;
   }
 
+  // Stored-data loading: unreadable records remain available for recovery or export.
   function decode(raw) {
     if (raw === null || raw === undefined) {
       return empty();
@@ -218,6 +225,7 @@
     }
   }
 
+  // Backup import: accept the exported wrapper or a plain workspace object.
   function parseBackup(raw) {
     let value;
     try {
@@ -228,6 +236,7 @@
     return normalize(value.workspace || value);
   }
 
+  // Backup export: include the format version and a validated workspace snapshot.
   function exportBackup(state) {
     return JSON.stringify(
       {
@@ -254,6 +263,7 @@
     return subject;
   }
 
+  // Workspace operations: apply changes to a copy, then validate the whole result.
   function apply(state, operation, now = Date.now()) {
     let next = utils.clone(state);
     let changed = true;
@@ -293,6 +303,7 @@
         next = normalize(next);
         result = op.record;
       } else if (op.type === 'assignment:delete' || op.type === 'task:delete') {
+        // Deleting an assignment keeps its study tasks and removes their assignment link.
         const key = op.type === 'assignment:delete' ? 'assignments' : 'tasks';
         const item = next[key].find((value) => value.id === op.id);
         utils.version(item, op.expectedRevision);
@@ -336,6 +347,7 @@
           }
         }
       } else if (op.type === 'data:import') {
+        // Replace restores the imported workspace; merge keeps existing records with matching IDs.
         const imported = normalize(op.workspace);
         if (op.mode === 'replace') {
           next = imported;
@@ -354,6 +366,7 @@
           throw new utils.ValidationError('Choose merge or replace.');
         }
       } else if (op.type === 'data:clear-demo') {
+        // Only records explicitly marked as samples are removed here.
         const ids = new Set(next.assignments.filter((a) => a.isDemo).map((a) => a.id));
         next.assignments = next.assignments.filter((a) => !a.isDemo);
         next.tasks = next.tasks

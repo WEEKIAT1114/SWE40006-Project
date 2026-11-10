@@ -1,3 +1,5 @@
+// Page controller: rendering, forms, and user actions for all four pages.
+// See docs/CODE_GUIDE.md for a feature-to-file index.
 (function () {
   'use strict';
   if (window.studySprintStorageFrame) {
@@ -5,6 +7,7 @@
   }
 
   // All data remains in the current browser. No API keys or external services.
+  // Subject colours and icons used throughout the interface.
   const SUBJECTS = [
     'Computer Science',
     'Business Management',
@@ -111,6 +114,7 @@
     Number.isFinite(parseDate(value).getTime()) &&
     dateKey(parseDate(value)) === value;
 
+  // Workspace state: connect the page controller to the domain modules.
   const {
     utils,
     model: workspaceModel,
@@ -149,6 +153,7 @@
   let finishingTimer = false;
   let importWorkspace = null;
   let confirmation = null;
+  // Shared markup: small pieces reused by tables, cards, and empty views.
   const badge = (value) => /* HTML */ `
     <span class="badge ${escapeHtml(String(value).toLowerCase().replaceAll(' ', '-'))}">
       <span class="badge-dot"></span>
@@ -196,6 +201,7 @@
     document.body.dataset.ready = 'true';
   }
 
+  // Save queue: finish each change before starting the next one.
   async function commit(operation, message) {
     if (!appReady && operation.type !== 'data:import') {
       toast('Use recovery or import a backup before making changes.');
@@ -286,6 +292,7 @@
     `;
   }
 
+  // Assignment table: the dashboard uses a compact row; Assignments adds editing controls.
   function assignmentRows(items, full = false) {
     return items
       .map((a) => {
@@ -386,6 +393,7 @@
       .join('');
   }
 
+  // Study plan: display the selected task view and its completion count.
   function taskCard() {
     const items = taskModel.list(state, taskView),
       done = items.filter((t) => t.done).length;
@@ -455,6 +463,7 @@
     $('#task-progress-fill').style.width = `${percent}%`;
   }
 
+  // Focus card: let a session belong to an assignment, a task, or neither.
   function contextOptions() {
     return (
       '<option value="">Unlinked focus session</option>' +
@@ -491,6 +500,7 @@
       `${focusToday().length} / ${state.profile.goal} sessions today`;
   }
 
+  // Dashboard page: refresh the totals, upcoming assignments, tasks, and focus card.
   function renderDashboard() {
     stats();
     taskCard();
@@ -519,6 +529,7 @@
     $('#workspace-intro').hidden = Boolean(state.assignments.length || state.tasks.length);
   }
 
+  // Assignment filters: combine status, subject, priority, search, and sort order.
   function filteredAssignments() {
     const order = { High: 0, Medium: 1, Low: 2 };
     return state.assignments
@@ -552,6 +563,7 @@
     });
   }
 
+  // Feedback messages: an optional Undo button restores the deleted record.
   function toast(message, undo) {
     const node = document.createElement('div');
     node.className = 'toast';
@@ -588,6 +600,7 @@
     }
   }
 
+  // Assignments page: update filter choices, table rows, and empty-state text.
   function renderAssignments() {
     const rows = filteredAssignments();
     const anyFilter =
@@ -634,6 +647,7 @@
     $('#assignment-footer-note').hidden = anyFilter;
   }
 
+  // Calendar events: combine assignment deadlines and scheduled study tasks.
   function calendarEvents() {
     return [
       ...state.assignments.map((a) => ({
@@ -855,6 +869,7 @@
       `;
   }
 
+  // Progress page: derive charts and milestones from the saved workspace.
   function renderProgress() {
     stats();
     renderProgressDetails();
@@ -947,6 +962,7 @@
       .join('');
   }
 
+  // Progress details: compare planned work, completed tasks, and recorded focus time.
   function renderProgressDetails() {
     const summary = progressModel.summary(state),
       days = progressModel.week(state),
@@ -1023,6 +1039,7 @@
       '<p class="muted">Add an assignment and link study tasks to see your progress.</p>';
   }
 
+  // Page router: render the current page without losing the active input when requested.
   function renderView(preserveFocus = false) {
     const focused = preserveFocus && document.activeElement?.id,
       position = focused && document.activeElement.selectionStart;
@@ -1048,6 +1065,7 @@
     }
   }
 
+  // Form helpers: keep subject choices and checklist rows consistent.
   function subjectOptions(select, value = '', includeNew = true) {
     select.innerHTML =
       '<option value="">Choose a subject</option>' +
@@ -1088,6 +1106,7 @@
   }
 
   // Forms, confirmation dialogs, and record editing.
+  // Assignment form: fill the dialog for editing or reset it for a new assignment.
   function openAssignment(id = null, dueDate = null) {
     const a = id ? state.assignments.find((item) => item.id === id) : null;
     if (id && !a) {
@@ -1129,6 +1148,7 @@
     }
   }
 
+  // Task form: keep the selected date and any linked assignment together.
   function openTask(id = null, assignmentId = null, date = null) {
     const task = id ? state.tasks.find((t) => t.id === id) : null;
     if (id && !task) {
@@ -1180,6 +1200,7 @@
     $('#confirm-dialog').showModal();
   }
 
+  // Delete and Undo: confirm first, then retain the original record for restoration.
   async function deleteRecord(kind, id) {
     const key = kind === 'assignment' ? 'assignments' : 'tasks',
       record = state[key].find((item) => item.id === id);
@@ -1205,6 +1226,7 @@
     );
   }
 
+  // Deadline reminders: control the popover, unread indicator, and read state.
   function closeNotifications() {
     $('#notifications').hidden = true;
     $('#notification-button').setAttribute('aria-expanded', 'false');
@@ -1263,6 +1285,7 @@
     $('#notification-button').setAttribute('aria-expanded', 'true');
   }
 
+  // Focus timer: refresh the countdown and disable session changes while running.
   function updateTimerUI() {
     const display = $('#timer-display');
     if (!display) {
@@ -1307,6 +1330,7 @@
     updateTimerUI();
     if (timer.running && timerModel.remaining(timer) === 0 && !finishingTimer) {
       finishingTimer = true;
+      // The timer ID also prevents another tab from recording the same session twice.
       const result = await commit({ type: 'timer:finish', timerId: timer.id });
       if (result?.changed) {
         toast('Session complete. Your focus time is saved once. Take a breath.');
@@ -1352,6 +1376,7 @@
     $('#timer-toggle').focus({ preventScroll: true });
   }
 
+  // Profile and preferences: subjects, reminder settings, goals, and break lengths.
   function renderSubjects() {
     $('#subject-list').innerHTML = state.subjects
       .map(
@@ -1390,6 +1415,7 @@
     $('#profile-dialog').showModal();
   }
 
+  // Backup files: export JSON and preview imports before applying any changes.
   function download(name, text) {
     const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
     const anchor = document.createElement('a');
@@ -1584,6 +1610,7 @@
       renderView(true);
     }
   });
+  // Assignment save: validate form values and send one update to the repository.
   $('#assignment-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const button = $('#save-assignment');
@@ -1634,6 +1661,7 @@
       button.disabled = false;
     }
   });
+  // Task save: preserve its revision so an older form cannot replace a newer edit.
   $('#task-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const button = $('#save-task');
@@ -1703,6 +1731,7 @@
   }
   $('#task-assignment').addEventListener('change', updateTaskSubject);
   $('#profile-button').addEventListener('click', openProfile);
+  // Preference save: update the profile and settings together.
   $('#profile-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const button = $('#save-profile');
@@ -1763,6 +1792,7 @@
       }
     }
   });
+  // Backup and recovery actions: export, import, or restore the previous snapshot.
   $('#export-data').addEventListener('click', () => exportData());
   $('#import-data').addEventListener('click', () => $('#import-file').click());
   $('#import-file').addEventListener('change', (event) => importFile(event.target.files[0]));
@@ -1832,6 +1862,7 @@
       }
     })
   );
+  // Global search: filter Assignments or carry the query to that page.
   $('#global-search').addEventListener('input', (event) => {
     if (currentView === 'assignments') {
       filters = {
@@ -1896,6 +1927,7 @@
       pendingSave.catch(() => {}).then(() => location.assign(url.href));
     }
   });
+  // Keyboard shortcuts: slash focuses search; Escape closes the notification popover.
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       closeNotifications();
@@ -1932,6 +1964,7 @@
             : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
     tabs[next].click();
   });
+  // Cross-tab updates: pull newer revisions when the page regains focus.
   async function refreshState() {
     try {
       const latest = await repository.read();
@@ -1953,6 +1986,7 @@
       applyState(next);
     }
   });
+  // Startup and recovery: load saved data before enabling edits or starting timers.
   async function initialize() {
     hydrateIcons();
     document.body.dataset.ready = 'false';

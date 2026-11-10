@@ -1,3 +1,4 @@
+// Deadline-reminder rules used by the notification popover.
 (function (root, factory) {
   const isNode = typeof module === 'object' && module.exports;
   const api = factory(
@@ -11,6 +12,7 @@
   }
 })(globalThis, function (utils, assignments) {
   'use strict';
+  // Reminder list: include unfinished assignments within the chosen reminder intervals.
   function list(state, now = Date.now()) {
     if (!state.settings.remindersEnabled) {
       return [];
@@ -25,6 +27,7 @@
         if (stage === undefined) {
           return null;
         }
+        // A new deadline or reminder stage gets a new key, so it can become unread again.
         const key = `${item.id}:${item.dueDate}:${item.dueTime || ''}:${stage}`;
         return {
           key,

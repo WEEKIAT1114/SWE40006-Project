@@ -24,6 +24,7 @@
       rel="stylesheet"
       href="styles.css"
     />
+    <!-- Script order: helpers and domain rules load before storage.js and app.js. -->
     <script
       src="js/utils.js"
       defer
@@ -71,6 +72,7 @@
     >
       Skip to content
     </a>
+    <!-- Site header: branding, page navigation, notifications, and profile. -->
     <header class="topbar">
       <div class="nav-container">
         <a
@@ -169,6 +171,7 @@
         </div>
       </div>
     </header>
+    <!-- Workspace bar: breadcrumb, save status, and global assignment search. -->
     <div class="workspace-bar">
       <div class="workspace-inner">
         <div class="breadcrumb">
@@ -208,6 +211,7 @@
         </div>
       </div>
     </div>
+    <!-- Page content: app.js chooses the renderer using the body data-page value. -->
     <main
       id="main-content"
       tabindex="-1"
@@ -485,6 +489,7 @@
     <noscript>
       <p class="privacy-note">Enable JavaScript to load your saved assignments and study tools.</p>
     </noscript>
+    <!-- Site footer: shared branding and closing text. -->
     <footer class="site-footer">
       <a
         class="footer-brand"
@@ -498,6 +503,7 @@
         <span class="footer-sparkle">✦</span>
       </span>
     </footer>
+    <!-- Assignment form: create or edit the deadline, priority, notes, and checklist. -->
     <dialog
       id="assignment-dialog"
       class="modal"
@@ -663,6 +669,7 @@
         </div>
       </form>
     </dialog>
+    <!-- Profile and preferences: subjects, reminders, focus settings, and backup actions. -->
     <dialog
       id="profile-dialog"
       class="modal settings-modal"
@@ -884,6 +891,7 @@
         </div>
       </form>
     </dialog>
+    <!-- Task form: schedule study work and optionally link it to an assignment. -->
     <dialog
       id="task-dialog"
       class="modal"
@@ -1001,6 +1009,7 @@
       accept="application/json,.json"
       hidden
     />
+    <!-- Confirmation dialog: app.js supplies the message and action before a destructive change. -->
     <dialog
       id="confirm-dialog"
       class="modal profile-modal"
@@ -1028,6 +1037,7 @@
         </button>
       </div>
     </dialog>
+    <!-- Backup import: preview the file and choose merge or replace before applying it. -->
     <dialog
       id="import-dialog"
       class="modal"

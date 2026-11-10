@@ -1,3 +1,4 @@
+// Progress calculations shared by the dashboard and Progress page.
 (function (root, factory) {
   const isNode = typeof module === 'object' && module.exports;
   const api = factory(
@@ -11,6 +12,7 @@
   }
 })(globalThis, function (utils, assignments) {
   'use strict';
+  // Summary totals: count saved records rather than storing duplicate statistics.
   function summary(state, now = Date.now()) {
     const today = utils.today(now);
     const start = utils.weekStart(now);
@@ -45,6 +47,7 @@
     };
   }
 
+  // Weekly activity: group planned work, completions, and focus minutes by day.
   function week(state, now = Date.now()) {
     const start = utils.weekStart(now);
     return Array.from({ length: 7 }, (_, index) => {
@@ -63,6 +66,7 @@
     });
   }
 
+  // Assignment effort: collect its linked tasks and completed focus sessions.
   function forAssignment(state, id) {
     const tasks = state.tasks.filter((item) => item.assignmentId === id);
     return {

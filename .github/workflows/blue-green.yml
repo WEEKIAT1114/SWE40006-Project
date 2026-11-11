@@ -1,0 +1,110 @@
+name: Manual Blue-Green Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      blue_ref:
+        description: "Stable Blue branch or commit"
+        required: true
+        default: "main"
+      green_ref:
+        description: "Candidate Green branch or commit"
+        required: true
+        default: "green"
+      active_slot:
+        description: "Select the live environment"
+        required: true
+        type: choice
+        options:
+          - blue
+          - green
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Blue
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.blue_ref }}
+          path: blue-source
+
+      - name: Checkout Green
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.green_ref }}
+          path: green-source
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build and test both environments
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for slot in blue green; do
+            cd "$GITHUB_WORKSPACE/$slot-source"
+
+            npm ci
+            npm run check
+            npm test
+            npm run build
+
+            mkdir -p "$GITHUB_WORKSPACE/site/$slot"
+            cp -a dist/. "$GITHUB_WORKSPACE/site/$slot/"
+          done
+
+      - name: Set active environment
+        env:
+          ACTIVE_SLOT: ${{ inputs.active_slot }}
+        run: |
+          python3 - <<'PY'
+          import os
+          slot = os.environ["ACTIVE_SLOT"]
+          assert slot in ("blue", "green")
+
+          with open("site/index.html", "w") as f:
+              f.write(
+                  '<!doctype html><html><head>'
+                  '<meta charset="utf-8">'
+                  '<meta http-equiv="refresh" '
+                  f'content="0;url=./{slot}/index.html">'
+                  '</head><body>'
+                  f'<a href="./{slot}/index.html">'
+                  'Open StudySprint</a>'
+                  '</body></html>'
+              )
+          open("site/.nojekyll", "w").close()
+          PY
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

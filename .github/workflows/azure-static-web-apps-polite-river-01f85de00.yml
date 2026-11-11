@@ -44,3 +44,19 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_RIVER_01F85DE00 }}
           action: 'close'
+
+approve_release:
+    name: Manual Approval
+    needs: verify_green
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production-green
+
+    steps:
+      - name: Approval confirmed
+        run: echo "Approved for production release"
+
+
+
+

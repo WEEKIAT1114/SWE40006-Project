@@ -54,3 +54,14 @@ Run the Firefox suite on a supported environment and retain its actual results. 
 - Historical report outcomes and timings were retained while machine-specific project paths were made relative.
 
 Current evidence: [checks and build](evidence/cleanup-checks.txt) and [Chromium browser results](evidence/cleanup-browser-results.json). Other browser results above describe the earlier verification run.
+
+## File organization — 12 November 2026
+
+- JavaScript moved into `assets/js/`, CSS into `assets/css/`, and the favicon into `assets/images/`. The changelog is now in `docs/`.
+- The four HTML pages and launcher retain their original locations. Script order, navigation paths, storage keys, and application behavior are preserved.
+- Build, local-server, validation, test, and CI artifact paths were updated. Browser output now goes into `reports/`; the previous HTML report is preserved in `reports/archive/before-organization/playwright/`.
+- Formatting and static asset/navigation checks passed, along with all 38 unit/storage/report tests and all 10 Chromium workflows.
+- All 15 production files matched their release checksums. All four built pages loaded under `/blue/` in Chromium at a mobile viewport with no script errors or failed resource requests. The source server served every linked asset and continued to reject requests for development files and reports.
+- Desktop and mobile screenshots from the workflow tests were visually reviewed. Firefox, remote CI, and production deployment were not rerun for this organization change.
+
+Evidence: [organization checks](evidence/organization-checks.txt) and [Chromium results](evidence/organization-browser-results.json).

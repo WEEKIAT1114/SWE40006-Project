@@ -23,7 +23,7 @@ npm run test:browser
 npm run build
 ```
 
-`npm run verify` runs syntax/link checks, unit/storage tests, and packaging. The browser suite is a separate command and is required by both supplied GitHub workflows.
+`npm run verify` runs syntax/link checks, unit/storage tests, and packaging. Browser output is collected in `reports/playwright/` (HTML) and `reports/test-results/` (JSON, screenshots, and traces). The browser suite is a separate command and is required by both supplied GitHub workflows.
 
 For installed Chrome and Edge on Windows:
 

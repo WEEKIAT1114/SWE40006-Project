@@ -17,10 +17,8 @@ const allowed = new Set([
   'assignments.html',
   'calendar.html',
   'progress.html',
-  'app.js',
-  'storage.js',
-  'styles.css',
-  'favicon.svg',
+  'assets/css/styles.css',
+  'assets/images/favicon.svg',
   'RELEASE.json',
 ]);
 const server = http.createServer((request, response) => {
@@ -30,7 +28,7 @@ const server = http.createServer((request, response) => {
     const file = path.resolve(root, relative);
     if (
       !file.startsWith(root + path.sep) ||
-      (!allowed.has(relative) && !/^js\/[a-z-]+\.js$/.test(relative))
+      (!allowed.has(relative) && !/^assets\/js\/[a-z-]+\.js$/.test(relative))
     ) {
       response.writeHead(404);
       response.end('Not found');

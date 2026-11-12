@@ -1,12 +1,12 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const utils = require('../js/utils.js'),
-  workspaceModel = require('../js/model.js'),
-  assignmentModel = require('../js/assignments.js'),
-  taskModel = require('../js/tasks.js'),
-  timerModel = require('../js/timer.js'),
-  progressModel = require('../js/progress.js'),
-  reminderModel = require('../js/reminders.js');
+const utils = require('../assets/js/utils.js'),
+  workspaceModel = require('../assets/js/model.js'),
+  assignmentModel = require('../assets/js/assignments.js'),
+  taskModel = require('../assets/js/tasks.js'),
+  timerModel = require('../assets/js/timer.js'),
+  progressModel = require('../assets/js/progress.js'),
+  reminderModel = require('../assets/js/reminders.js');
 const NOW = new Date(2026, 9, 27, 12).getTime();
 const assignment = (extra = {}) => ({
   id: utils.id(),

@@ -4,7 +4,7 @@ const { spawnSync } = require('node:child_process');
 const { sanitizeReport } = require('./portable-report.cjs');
 
 const root = path.resolve(__dirname, '..');
-const reportFile = path.join(root, 'test-results', 'browser-results.json');
+const reportFile = path.join(root, 'reports', 'test-results', 'browser-results.json');
 const startedAt = Date.now();
 const result = spawnSync(
   process.execPath,

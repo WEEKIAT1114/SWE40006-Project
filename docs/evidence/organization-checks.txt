@@ -1,0 +1,70 @@
+
+> studysprint@2.0.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> studysprint@2.0.0 verify
+> npm run check && npm test && npm run build
+
+
+> studysprint@2.0.0 check
+> node scripts/check.cjs
+
+PASS: 9 JavaScript files parse; 4 HTML pages have unique IDs, valid local assets, and page links.
+
+> studysprint@2.0.0 test
+> node --test tests/*.test.cjs
+
+✔ fresh workspaces are empty and use Student (2.3491ms)
+✔ dates validate leap years and reject invalid dates (0.2336ms)
+✔ calendar day calculations cross month and year boundaries (0.1757ms)
+✔ assignment validation rejects whitespace, bad times, subjects, hours, and statuses (1.9107ms)
+✔ assignment creation, deadline change, checklist, and completion counts (1.1903ms)
+✔ reopening an assignment clears its completion date (0.2852ms)
+✔ overdue is derived without changing the saved status (0.1213ms)
+✔ due time controls overdue warnings on the due day (0.0932ms)
+✔ same-record stale edits are rejected (0.3446ms)
+✔ incomplete past tasks stay visible and completed history is retained (0.7886ms)
+✔ future tasks can be edited, rescheduled, linked, and completed (0.4896ms)
+✔ task validation rejects empty titles and missing related assignments (0.2086ms)
+✔ deleting an assignment preserves and unlinks study tasks (0.2887ms)
+✔ custom subjects can be added once and used in a batch (0.2442ms)
+✔ linked focus sessions are recorded once and progress includes their time (0.6731ms)
+✔ break sessions do not count as study time and return to focus (0.1431ms)
+✔ timer pause retains elapsed time and stale timer commands fail (0.194ms)
+✔ completion after reopening is attributed to the actual end date (0.1392ms)
+✔ 7/3/1-day reminders advance and completed assignments stop alerting (0.4166ms)
+✔ reminder settings disable alerts and retain overdue warnings when enabled (0.1564ms)
+✔ backup export/import round-trips linked records and focus data (0.8014ms)
+✔ malformed and unsupported backups are rejected (0.1589ms)
+✔ merge preserves current records on matching IDs; replace restores counts (0.3472ms)
+✔ demo records are opt-in and clearing them preserves real data (0.3325ms)
+✔ version 1 migration preserves coursework and converts old task times (0.2314ms)
+✔ rendered user values can be safely escaped (0.1173ms)
+✔ record and checklist IDs reject ambiguous or duplicate values (0.1791ms)
+✔ Undo restoration preserves original completion history and rejects duplicate restores (0.2774ms)
+✔ shared reports remove Windows machine paths and preserve test results (1.3306ms)
+✔ shared reports remove Unix project paths from attachments and errors (0.2333ms)
+✔ unrelated edits from two tabs are merged atomically (9.6744ms)
+✔ same-record conflicting saves are rejected without losing newer values (2.6688ms)
+✔ concurrent timer completion records exactly one linked focus session (1.6879ms)
+✔ the previous snapshot restores data with an increasing revision (0.9717ms)
+✔ reading or reopening a valid workspace does not rewrite it (0.6413ms)
+✔ corrupt legacy data is not silently replaced by demo data (0.4913ms)
+✔ a valid replacement backup can recover an unreadable legacy workspace (0.6192ms)
+✔ HTTP pages never expose the local-file storage messaging bridge (1.2523ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 177.6402
+
+> studysprint@2.0.0 build
+> node scripts/build.cjs
+
+Packaged 15 static files in dist with SHA-256 checksums.

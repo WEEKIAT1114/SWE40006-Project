@@ -17,14 +17,12 @@ const files = [
   'assignments.html',
   'calendar.html',
   'progress.html',
-  'styles.css',
-  'favicon.svg',
-  'app.js',
-  'storage.js',
+  'assets/css/styles.css',
+  'assets/images/favicon.svg',
   ...fs
-    .readdirSync(path.join(root, 'js'))
+    .readdirSync(path.join(root, 'assets/js'))
     .filter((f) => f.endsWith('.js'))
-    .map((f) => 'js/' + f),
+    .map((f) => 'assets/js/' + f),
 ];
 // Release manifest: record a checksum for every packaged file.
 const hashes = {};

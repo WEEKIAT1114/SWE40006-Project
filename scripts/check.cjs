@@ -6,12 +6,10 @@ const pages = ['index.html', 'assignments.html', 'calendar.html', 'progress.html
 let count = 0;
 // JavaScript check: parse runtime files without executing browser code.
 for (const file of [
-  'app.js',
-  'storage.js',
   ...fs
-    .readdirSync(path.join(root, 'js'))
+    .readdirSync(path.join(root, 'assets/js'))
     .filter((f) => f.endsWith('.js'))
-    .map((f) => 'js/' + f),
+    .map((f) => 'assets/js/' + f),
 ]) {
   new vm.Script(fs.readFileSync(path.join(root, file), 'utf8'), { filename: file });
   count++;

@@ -68,7 +68,7 @@ Unit/storage tests use Node's test runner and fake-indexeddb. Browser tests use 
 
 Run `npm run format` to apply the project's indentation and line wrapping. The shared formatting settings cover JavaScript, HTML, CSS, JSON, Markdown, and workflow files.
 
-The browser test command writes project-relative paths in its JSON report, including failed runs. Saved evidence can be made portable with `node scripts/portable-report.cjs <report.json>`; test outcomes and timings are retained.
+The browser test command writes project-relative paths in `reports/test-results/browser-results.json`, including failed runs. Its HTML report is saved in `reports/playwright/`. Saved evidence can be made portable with `node scripts/portable-report.cjs <report.json>`; test outcomes and timings are retained.
 
 Chromium, installed Google Chrome, and installed Microsoft Edge passed the local workflow suite. Firefox could not launch in the local Windows environment; its tests remain configured for another supported environment/CI. See [verification evidence](docs/VERIFICATION.md) for exact results and limitations.
 
@@ -76,16 +76,18 @@ Chromium, installed Google Chrome, and installed Microsoft Edge passed the local
 
 See the [code guide](docs/CODE_GUIDE.md) for feature locations and searchable comment labels.
 
-- `index.html`, `assignments.html`, `calendar.html`, `progress.html`: each page's own layout and shared forms.
-- `app.js`: application controller, page rendering, and user interactions.
-- `js/utils.js`, `assignments.js`, `tasks.js`, `timer.js`, `progress.js`, `reminders.js`, `model.js`: domain logic, validation, migration, and atomic operations.
-- `storage.js`: IndexedDB repository and restricted local-file bridge.
-- `styles.css`, `favicon.svg`: appearance and branding.
+- `index.html`, `assignments.html`, `calendar.html`, `progress.html`: each page's own layout and shared forms. These stay at the project root so existing page URLs and the local-file storage bridge keep working.
+- `assets/js/app.js`: application controller, page rendering, and user interactions.
+- `assets/js/`: application controller, storage, domain logic, validation, migration, and atomic operations.
+- `assets/js/storage.js`: IndexedDB repository and restricted local-file bridge.
+- `assets/css/styles.css`, `assets/images/favicon.svg`: appearance and branding.
 - `tests/`: unit/storage regression tests and browser workflows.
 - `scripts/`: local server, static checks, packaging, and a local failed-gate demonstration.
 - `.github/workflows/`: push/PR checks and manually triggered gated deployment/rollback.
 - `docs/OPERATIONS.md`: environment, logs, hosting, recovery, rollback, and evidence instructions.
-- `CHANGELOG.md`: version history.
+- `docs/CHANGELOG.md`: version history.
+- `reports/`: generated browser reports, screenshots, and traces (excluded from Git).
+- `dist/`: generated deployment package; rebuild after source edits.
 
 ## Deployment and limitations
 

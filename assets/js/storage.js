@@ -1,7 +1,7 @@
 /* Atomic IndexedDB persistence. A restricted file-only bridge shares direct-file pages. */
 (function (root, factory) {
   const node = typeof module === 'object' && module.exports;
-  const create = factory(node ? require('./js/model.js') : root.StudySprint.model);
+  const create = factory(node ? require('./model.js') : root.StudySprint.model);
   if (node) {
     module.exports = create;
     return;

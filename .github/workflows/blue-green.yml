@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       blue_ref:
-        description: "Stable Blue branch or commit"
+        description: 'Stable Blue branch or commit'
         required: true
-        default: "main"
+        default: 'main'
       green_ref:
-        description: "Candidate Green branch or commit"
+        description: 'Candidate Green branch or commit'
         required: true
-        default: "green"
+        default: 'green'
       active_slot:
-        description: "Select the live environment"
+        description: 'Select the live environment'
         required: true
         type: choice
         options:

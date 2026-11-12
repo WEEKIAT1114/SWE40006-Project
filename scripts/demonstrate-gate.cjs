@@ -3,7 +3,7 @@
 const { spawnSync } = require('node:child_process');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
-const command = "const M=require('./js/model.js'); M.parseBackup('{invalid JSON');";
+const command = "const M=require('./assets/js/model.js'); M.parseBackup('{invalid JSON');";
 const failed = spawnSync(process.execPath, ['-e', command], { cwd: root, encoding: 'utf8' });
 if (failed.status === 0) {
   throw new Error('The deliberately invalid input unexpectedly passed.');

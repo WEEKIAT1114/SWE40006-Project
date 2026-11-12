@@ -11,14 +11,15 @@ if (process.env.TEST_CHROME) {
 }
 module.exports = defineConfig({
   testDir: 'tests/browser',
+  outputDir: 'reports/test-results',
   fullyParallel: false,
   workers: process.env.CI ? 2 : 2,
   retries: process.env.CI ? 1 : 0,
   timeout: 30000,
   reporter: [
     ['list'],
-    ['html', { open: 'never' }],
-    ['json', { outputFile: 'test-results/browser-results.json' }],
+    ['html', { open: 'never', outputFolder: 'reports/playwright' }],
+    ['json', { outputFile: 'reports/test-results/browser-results.json' }],
   ],
   use: {
     baseURL: 'http://127.0.0.1:8123',

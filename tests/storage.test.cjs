@@ -1,9 +1,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { IDBFactory } = require('fake-indexeddb');
-const createRepository = require('../storage.js'),
-  workspaceModel = require('../js/model.js'),
-  utils = require('../js/utils.js');
+const createRepository = require('../assets/js/storage.js'),
+  workspaceModel = require('../assets/js/model.js'),
+  utils = require('../assets/js/utils.js');
 const NOW = new Date(2026, 9, 27, 12).getTime();
 const record = (title = 'Saved assignment') => ({
   id: utils.id(),
@@ -127,7 +127,7 @@ test('HTTP pages never expose the local-file storage messaging bridge', () => {
     path = require('node:path');
   const events = [];
   const window = { parent: {}, addEventListener: (type) => events.push(type) };
-  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../storage.js'), 'utf8'), {
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../assets/js/storage.js'), 'utf8'), {
     StudySprint: { model: workspaceModel },
     window,
     location: { protocol: 'https:', hash: '#studysprint-storage' },

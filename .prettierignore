@@ -1,6 +1,5 @@
 node_modules/
 dist/
-playwright-report/
-test-results/
+reports/
 docs/evidence/
 package-lock.json
